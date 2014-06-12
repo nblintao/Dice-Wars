@@ -12,8 +12,9 @@ class Game
 private:
     int playerAmount;
     list<Player> playerList;
-    list<Player&> alivePlayer;
-    map<int, Player&> numToPlayer;
+    list<Land> landList;
+    //list<Player&> alivePlayer;
+    //map<int, Player&> numToPlayer;
 
 public:
     Game(int chooseAmount);

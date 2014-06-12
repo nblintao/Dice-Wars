@@ -20,5 +20,8 @@ public:
     ~Player();
     void AddLand(Land& theLand);
     void DeleteLand(Land& theLand);
+    void Die();
+    void AdjustMaxAdjacentLands();
+    void EndTurn();
 };
 #endif
