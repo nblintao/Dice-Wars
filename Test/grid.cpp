@@ -13,5 +13,11 @@ QColor Grid::getColor(void) const
 
 void Grid::setColor(QColor sColor){
     this->color = sColor;
-    emit sendColorChange();
+}
+
+void Grid::setLand(Land& newLand){
+    homeLand = newLand;
+}
+Land& Grid::getLand(){
+    return this->homeLand;
 }

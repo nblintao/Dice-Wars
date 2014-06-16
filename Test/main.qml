@@ -72,22 +72,21 @@ Rectangle {
 //                    acceptedButtons: Qt.AllButtons
                     // Value 'All.Buttons' is eqivalent to:
                     // 'Qt::LeftButton | Qt::RightButton | Qt::MiddleButton  .... | Qt::ExtraButton24'
-
                     onEntered:{
-                                    //info.text = 'Entered '+index;
-                        info.text = gameMap.getColor(5);
-                                    //.itemAt(index).color="#da70d6";
-                                    gameMap.enter(index);
-                        for(var i=0;i<200;i++){
-                            rep.itemAt(i).color=gameMap.getColor(i);
-                        }
+                        info.text = 'Entered '+index;
+                        gameMap.enter(index);
+                        for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                    }
+                    onExited:{
+                        info.text = 'Exited '+index+' (pressed=' + pressed + ')';
+                        gameMap.exit(index);
+                        for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                    }
 
-                              }
 //                    onExited: {
 //                                    info.text = 'Exited '+index+' (pressed=' + pressed + ')';
 //                                    rep.itemAt(index).color=lastColor;
 //                              }
-
 //                    onPressed: {
 //                        if (mouse.button == Qt.LeftButton)
 //                            buttonID = 'LeftButton'
