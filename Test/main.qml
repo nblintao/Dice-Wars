@@ -60,7 +60,8 @@ Rectangle {
                 color:"#a020f0";
                 border.color:"white";
                 property var name:index;
-                Text { text: index; font.pixelSize: 15; anchors.centerIn: parent }
+                property var lastColor:"#a020f0";
+      //          Text { text: index; font.pixelSize: 15; anchors.centerIn: parent }
 
                 MouseArea {
                     anchors.fill: parent
@@ -77,7 +78,7 @@ Rectangle {
                               }
                     onExited: {
                                     info.text = 'Exited '+index+' (pressed=' + pressed + ')';
-                                    rep.itemAt(index).color="#a020f0";
+                                    rep.itemAt(index).color=lastColor;
                               }
 
                     onPressed: {
@@ -107,7 +108,19 @@ Rectangle {
 
                     //! [clicks]
                     onPressAndHold: btn.text = 'Press and hold'
-                    onClicked:btn.text = 'Clicked '+index+' (wasHeld=' + mouse.wasHeld + ')';
+                    onClicked:{
+                                btn.text = 'Clicked '+index+' (wasHeld=' + mouse.wasHeld + ')';
+                                if (rep.itemAt(index).lastColor=="#a020f0")
+                                {
+                                    rep.itemAt(index).color="#ffffff";
+                                    rep.itemAt(index).lastColor="#ffffff";
+                                }
+                                else
+                                {
+                                   rep.itemAt(index).lastColor="#a020f0";
+                                   rep.itemAt(index).color="#da70d6";
+                                }
+                              }
 
                     onDoubleClicked: btn.text = 'Double clicked'
                     //! [clicks]
