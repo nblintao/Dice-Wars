@@ -4,13 +4,14 @@
 #include <QQmlFileSelector>
 #include <QQuickView>
 #include <QQmlContext>
+#include "gamemap.h"
 int main(int argc, char* argv[])
 {
     QGuiApplication app(argc,argv);
     QQuickView view;
 
-   // Grid grids[100][200];
-    //view.rootContext()->setContextProperty("grids",&grids);
+    GameMap gameMap;
+    view.rootContext()->setContextProperty("gameMap",&gameMap);
 
     view.setSource(QUrl("qrc:///main.qml"));
     view.setResizeMode(QQuickView::SizeRootObjectToView);
