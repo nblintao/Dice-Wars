@@ -47,17 +47,17 @@ Rectangle {
     Grid{
         id:grid
         rows:10;
-        columns:10;
+        columns:20;
         spacing:1;
         Repeater{
             id:rep;
-            model:100;
+            model:200;
             Rectangle {
             //    var tid="rec"+index;
                 id:rec;
                 width: 40; height: 40
            //     x:(index%10)*10;y:(index/10)*10;
-                color:"red";
+                color:"#a020f0";
                 border.color:"white";
                 property var name:index;
                 Text { text: index; font.pixelSize: 15; anchors.centerIn: parent }
@@ -73,11 +73,11 @@ Rectangle {
 
                     onEntered:{
                                     info.text = 'Entered '+index;
-                                    rep.itemAt(index).color="blue";
+                                    rep.itemAt(index).color="#da70d6";
                               }
                     onExited: {
                                     info.text = 'Exited '+index+' (pressed=' + pressed + ')';
-                                    rep.itemAt(index).color="red";
+                                    rep.itemAt(index).color="#a020f0";
                               }
 
                     onPressed: {
