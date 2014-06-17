@@ -25,7 +25,9 @@ void GameMap::AddGrid(Grid& newLand,int row,int colum){
 
 GameMap::~GameMap()
 {
-    delete
+    for(set<Land&>::iterator it=lands.begin();it!=lands.end();it++){
+        delete it;
+    }
 }
 
 QColor GameMap::getColor(int index) const
@@ -34,12 +36,14 @@ QColor GameMap::getColor(int index) const
 }
 
 void GameMap::enter(int index){
-    setColor(index, QColor(Qt::blue));
+    Land *homeLand = grids[index/20][index%20].getLand();
+    if(homeLand)
+        homeLand->setColor(homeLand.color.lighter(80));
 }
 
-void GameMap::setColor(int index, QColor sColor){
+void GameMap::exit(int index){
     Land& homeLand = grids[index/20][index%20].getLand();
-    homeLand.setColor(sColor);
+    if(homeLand)
+        homeLand->setColor(homeLand.color);
 }
-
 

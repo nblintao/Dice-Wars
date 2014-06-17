@@ -8,7 +8,6 @@ class Land;
 class Grid : public QObject
 {
     Q_OBJECT
-//    Q_PROPERTY(QColor color READ getColor WRITE setColor NOTIFY sendColorChange)
 public:
     explicit Grid(QObject *parent = 0);
     Q_INVOKABLE QColor getColor(void) const;
@@ -21,7 +20,7 @@ signals:
 public slots:
 private:
     QColor color;
-    Land& homeLand;
+    Land *homeLand;
 };
 
 #endif // GRID_H

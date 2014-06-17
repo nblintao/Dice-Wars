@@ -4,6 +4,7 @@ Grid::Grid(QObject *parent) :
     QObject(parent)
 {
     color = QColor(Qt::red);
+    homeLand = NULL;
 }
 
 QColor Grid::getColor(void) const
@@ -16,8 +17,8 @@ void Grid::setColor(QColor sColor){
 }
 
 void Grid::setLand(Land& newLand){
-    homeLand = newLand;
+    homeLand = &newLand;
 }
 Land& Grid::getLand(){
-    return this->homeLand;
+    return *(this->homeLand);
 }
