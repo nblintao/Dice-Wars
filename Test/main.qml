@@ -64,6 +64,10 @@ Rectangle {
 //                property var name:index;
 //                property var lastColor:"#a020f0";
       //          Text { text: index; font.pixelSize: 15; anchors.centerIn: parent }
+                Image{
+                    x:index*index%10;y:10-index*index%10;
+                    source:"./Dice_20.png";
+                }
 
                 MouseArea {
                     anchors.fill: parent

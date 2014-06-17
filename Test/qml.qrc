@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>Dice_20.png</file>
+        <file>Transparent.png</file>
     </qresource>
 </RCC>
