@@ -31,5 +31,6 @@ public:
     void Enter();
     void Exit();
     QColor getColor(){return color;}
+    bool BelongTo(Player *owner){return this->owner==owner;}
 };
 #endif

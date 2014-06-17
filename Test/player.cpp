@@ -45,7 +45,7 @@ void Player::DeleteLand(Land *theLand)
 }
 void Player::Die()
 {
-    std::cout << "player" << this->ID << "die" << endl;
+    std::cout << "PLAYER " << this->ID << " DIE" << endl;
     this->alive = 0;
 }
 void Player::AdjustMaxAdjacentLands()

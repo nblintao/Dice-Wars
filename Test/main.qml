@@ -135,8 +135,9 @@ Rectangle {
 //                    //! [clicks]
 //                    onPressAndHold: btn.text = 'Press and hold'
                     onClicked:{
-                        gameMap.enter(index);
-                        gameMap.setDice(index,3);
+                        gameMap.click(index);
+
+//                        gameMap.setDice(index,3);
                         for(var i=0;i<200;i++){
                             if(gameMap.getDice(i)==1)
                                 imageRep.itemAt(i).source="Dice_20.png";
@@ -254,7 +255,7 @@ Rectangle {
         id: info
         anchors.bottom: btn.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 20
 
-        onTextChanged: console.log(text)
+        //onTextChanged: console.log(text)
     }
 
     Text {

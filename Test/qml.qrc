@@ -2,6 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>Dice_20.png</file>
-        <file>Transparent.png</file>
+        <file>Transparent_20.png</file>
     </qresource>
 </RCC>

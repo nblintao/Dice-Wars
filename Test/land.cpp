@@ -5,7 +5,8 @@ Land::Land()
 {
     owner = NULL;
     color = QColor(Qt::yellow);
-    diceAmount=0;
+    //setDice(rand()%MAXDICE + 1);
+    //diceAmount = rand()%MAXDICE + 1;
 }
 
 
@@ -37,18 +38,21 @@ void Land::Attack(Land *attacked)
     for (int i = 0; i < attacked->diceAmount; i++) {
         dots = rand() % 6 + 1;
         std::cout << dots << endl;
-        attackerDots += dots;
+        attackedDots += dots;
     }
     std::cout << "=" << attackedDots << endl;
     /*攻击成功*/
     if (attackerDots>attackedDots) {
         attacked->ChangeOwner(this->owner);
-        attacked->diceAmount = this->diceAmount - 1;
-        this->diceAmount = 1;
+        //attacked->diceAmount = this->diceAmount - 1;
+        attacked->setDice(this->diceAmount - 1);
+        //this->diceAmount = 1;
+        setDice(1);
     }
     /*攻击失败*/
     else {
-        this->diceAmount = 1;
+        //this->diceAmount = 1;
+        setDice(1);
     }
 }
 

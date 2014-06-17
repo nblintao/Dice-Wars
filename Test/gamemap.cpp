@@ -17,6 +17,8 @@ GameMap::GameMap(QObject *parent) :
         players.push_back(theplayer);
     }
 
+    int const MAXDICE = 6;
+
     Land *theLand;
 
     theLand = new Land;
@@ -27,6 +29,7 @@ GameMap::GameMap(QObject *parent) :
     AddGrid(theLand,1,3);
     AddGrid(theLand,2,3);
     AssignLand(players[rand()%playerAmount],theLand);
+    theLand->setDice(rand()%MAXDICE + 1);
     lands.insert(theLand);
 
     theLand = new Land;
@@ -37,6 +40,7 @@ GameMap::GameMap(QObject *parent) :
     AddGrid(theLand,1,6);
     AddGrid(theLand,2,6);
     AssignLand(players[rand()%playerAmount],theLand);
+    theLand->setDice(rand()%MAXDICE + 1);
     lands.insert(theLand);
 
     theLand = new Land;
@@ -47,6 +51,7 @@ GameMap::GameMap(QObject *parent) :
     AddGrid(theLand,2,4);
     AddGrid(theLand,2,5);
     AssignLand(players[rand()%playerAmount],theLand);
+    theLand->setDice(rand()%MAXDICE + 1);
     lands.insert(theLand);
 
 
@@ -57,6 +62,12 @@ GameMap::GameMap(QObject *parent) :
                 grids[i][j].setColor(homeLand->getColor());
         }
     }
+
+    attacker = NULL;
+    attacked = NULL;
+
+    playerNow = players[0];
+
 }
 void GameMap::AddGrid(Land *theLand,int row,int colum){
     theLand->AddGrid(&grids[row][colum]);
@@ -86,15 +97,40 @@ void GameMap::setDice(int index,int diceSum){
 
 void GameMap::enter(int index){
     Land *homeLand = grids[index/20][index%20].getLand();
-    if(homeLand)
+    if(homeLand && (homeLand != attacker))
         homeLand->Enter();
 
 }
 
 void GameMap::exit(int index){
     Land *homeLand = grids[index/20][index%20].getLand();
-    if(homeLand)
+    if(homeLand && (homeLand != attacker))
         homeLand->Exit();
+}
+
+void GameMap::click(int index){
+    Land *homeLand = grids[index/20][index%20].getLand();
+    if(NULL == homeLand){
+        attacker = attacked = NULL;
+    }else{
+        if(homeLand->BelongTo(playerNow)){
+            if(NULL != attacker)
+                attacker->setColor(attacker->getColor());
+            attacker = homeLand;
+            attacker->setColor(Qt::black);
+            attacked = NULL;
+        }else{
+            if(NULL != attacker){
+                attacked = homeLand;
+                attacker->Attack(attacked);
+                attacker->setColor(attacker->getColor());
+                attacker = attacked = NULL;
+            }
+        }
+    }
+}
+void GameMap::endTurn(){
+
 }
 
 void GameMap::AssignLand(Player *thePlayer, Land *theLand){
