@@ -144,6 +144,7 @@ Rectangle {
                             else
                                 imageRep.itemAt(i).source="Transparent_20.png";
                         }
+                        for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                     }
 
 //                    onClicked:{
