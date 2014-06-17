@@ -150,7 +150,7 @@ void GameMap::click(int index){
             attacker->setColor(Qt::black);
             attacked = NULL;
         }else{
-            if(NULL != attacker){
+            if(NULL != attacker && (attacker->IsAdjacent(homeLand))){
                 attacked = homeLand;
                 attacker->Attack(attacked);
                 attacker->setColor(attacker->getColor());
