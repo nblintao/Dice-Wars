@@ -17,10 +17,40 @@ GameMap::GameMap(QObject *parent) :
         players.push_back(theplayer);
     }
 
-    int const MAXDICE = 6;
+    int const MAXDICE = 3;
 
     Land *theLand;
 
+    int map[10][20];
+    char temp;
+    FILE *fp=fopen("c.csv","r");
+    if (fp!=NULL){
+        for (int i=0;i<10;i++)
+        for (int j=0;j<20;j++){
+            fscanf(fp,"%d",&map[i][j]);
+            fscanf(fp,"%c",&temp);
+        }
+    }
+    for (int index=1;index<30;index++){
+        theLand=new Land;
+        int nothing = 1;
+        for (int i=0;i<10;i++){
+            for (int j=0;j<20;j++){
+                if (map[i][j]==index){
+                    AddGrid(theLand,i,j);
+                    nothing = 0;
+                }
+            }
+        }
+        if(0 == nothing){
+            AssignLand(players[rand()%playerAmount],theLand);
+            theLand->setDice(rand()%MAXDICE + 1);
+            lands.insert(theLand);
+        }
+    }
+
+
+/*
     theLand = new Land;
     AddGrid(theLand,0,1);
     AddGrid(theLand,0,2);
@@ -53,7 +83,7 @@ GameMap::GameMap(QObject *parent) :
     AssignLand(players[rand()%playerAmount],theLand);
     theLand->setDice(rand()%MAXDICE + 1);
     lands.insert(theLand);
-
+*/
 
     for(int i=0;i<10;i++){
         for(int j=0;j<20;j++){
