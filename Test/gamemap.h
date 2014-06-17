@@ -1,5 +1,5 @@
-#ifndef GAMEMAP_H
-#define GAMEMAP_H
+#ifndef _GAMEMAP_H
+#define _GAMEMAP_H
 
 #include "grid.h"
 #include "land.h"

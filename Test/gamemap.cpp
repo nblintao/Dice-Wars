@@ -3,11 +3,11 @@
 GameMap::GameMap(QObject *parent) :
     QObject(parent)
 {
-    for(int i=0;i<10;i++){
-        for(int j=0;j<20;j++){
-            grids[i][j].setColor(QColor(i*10,j*10,0));
-        }
-    }
+//    for(int i=0;i<10;i++){
+//        for(int j=0;j<20;j++){
+//            grids[i][j].setColor(QColor(i*10,j*10,0));
+//        }
+//    }
 
     Land *theLand;
     theLand = new Land;
@@ -18,6 +18,14 @@ GameMap::GameMap(QObject *parent) :
     AddGrid(theLand,1,3);
     AddGrid(theLand,2,3);
     lands.insert(theLand);
+
+    for(int i=0;i<10;i++){
+        for(int j=0;j<20;j++){
+            Land *homeLand = grids[i][j].getLand();
+            if(NULL != homeLand)
+                grids[i][j].setColor(homeLand->getColor());
+        }
+    }
 }
 void GameMap::AddGrid(Land *theLand,int row,int colum){
     theLand->AddGrid(&grids[row][colum]);

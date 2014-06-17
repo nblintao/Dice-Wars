@@ -3,7 +3,7 @@
 Grid::Grid(QObject *parent) :
     QObject(parent)
 {
-    color = QColor(Qt::red);
+    color = QColor(Qt::gray);
     homeLand = NULL;
 }
 

@@ -1,5 +1,5 @@
-#ifndef GRID_H
-#define GRID_H
+#ifndef _GRID_H
+#define _GRID_H
 
 #include <QObject>
 #include <QList>
