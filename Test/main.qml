@@ -48,8 +48,7 @@ Rectangle {
         id:grid
         rows:10;
         columns:20;
-        //spacing:1;
-        anchors.top: parent.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 10;
+        spacing:1;
         Repeater{
             id:rep;
             model:200;
@@ -140,90 +139,7 @@ Rectangle {
         }
 
     }
-    Rectangle{
-        id:realTimeStatus
-        width: grid.width; height: 40;
-       // border.color:"#404040";
-       // border.width: 2;
-        anchors.top: grid.bottom; anchors.left: grid.left; anchors.horizontalCenter: parent.horizontalCenter;
-        Row{
-            anchors.left: grid.left; anchors.verticalCenter: parent.verticalCenter;anchors.horizontalCenter: parent.horizontalCenter;anchors.margins: realTimeStatus.border.width;
-            Rectangle{
-                id:playerfColor;
-                width:30;
-                height:30;
-                color:"yellow";
-            }
-            Text{
-                id:playerfPoint;
-                width:300;
-                anchors.verticalCenter: parent.verticalCenter;
-                horizontalAlignment:Text.AlignHCenter;
-                text:"23";
-                font.pixelSize: 25;
-            }
-            Rectangle{
-                id:playersColor;
-                width:30;
-                height:30;
-                color:"#00ee76";
-            }
-            Text{
-                id:playersPoint;
-                width:300;
-                anchors.verticalCenter: parent.verticalCenter;
-                horizontalAlignment:Text.AlignHCenter;
-                text:"16";
-                font.pixelSize: 25;
-            }
-        }
-    }
-    Rectangle{
-        id:playerNotify
-        width: grid.width; height: 40;
-  //      border.color:"#404040";
- //       border.width: 2;
-        anchors.top: realTimeStatus.bottom; anchors.left: grid.left; anchors.horizontalCenter: parent.horizontalCenter;
-        Row{
-            anchors.horizontalCenter: parent.horizontalCenter;anchors.verticalCenter: parent.verticalCenter;anchors.margins: 2;
-            Text{
-                anchors.verticalCenter: parent.verticalCenter;
-                horizontalAlignment:Text.AlignHCenter;
-                text:"1.Click your area.";
-                font.pixelSize: 20;
-            }
-            Rectangle{
-                id:playerColor;
-                anchors.verticalCenter: parent.verticalCenter;
-                width:30;
-                height:30;
-                color:"#7D9EC0";
-            }
-            Text{
-                anchors.verticalCenter: parent.verticalCenter;
-                horizontalAlignment:Text.AlignHCenter;
-                text:"  2.Click neighbor to attack.";
-                font.pixelSize: 20;
-            }
-            Rectangle{
-                id:endTurn;
-                anchors.top: playerNotify.top;
-                width:150;
-                height:37;
-                radius: 4;
-                color:"#737373";
-                Text{
-        //            anchors.top:parent.top;
-                    anchors.verticalCenter: parent.verticalCenter;
-                    anchors.horizontalCenter: parent.horizontalCenter;
-                    text:"END TURN";
-                    font.pixelSize:23;
-                }
 
-
-            }
-        }
-    }
     Text {
         id: info
         anchors.bottom: btn.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 20
