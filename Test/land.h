@@ -14,7 +14,7 @@ class Land
 {
 private:
     //Player& owner;
-    set<Grid&> grids;
+    set<Grid*> grids;
 //    set<Land&> adjacentLands;
 //    int diceAmount;
     QColor color;
@@ -25,8 +25,10 @@ public:
 //    bool IsAdjacent(Land& anotherLand);
 //    void Attack(Land& attacked);
 //    void ChangeOwner(Player& newOwner);
-    void AddGrid(Grid& newGrid);
+    void AddGrid(Grid* newGrid);
     void setColor(QColor color);
+    void Enter();
+    void Exit();
 };
 
 #endif

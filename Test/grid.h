@@ -12,8 +12,8 @@ public:
     explicit Grid(QObject *parent = 0);
     Q_INVOKABLE QColor getColor(void) const;
     Q_INVOKABLE void setColor(QColor sColor);
-    void setLand(Land& newLand);
-    Land& getLand();
+    void setLand(Land *newLand);
+    Land* getLand();
 
 signals:
     void sendColorChange(void);

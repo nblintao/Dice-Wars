@@ -9,24 +9,25 @@ GameMap::GameMap(QObject *parent) :
         }
     }
 
-    Land& newLand = new Land;
-    AddGrid(newLand,0,1);
-    AddGrid(newLand,0,2);
-    AddGrid(newLand,0,3);
-    AddGrid(newLand,1,2);
-    AddGrid(newLand,1,3);
-    AddGrid(newLand,2,3);
-    lands.insert(newLand);
+    Land *theLand;
+    theLand = new Land;
+    AddGrid(theLand,0,1);
+    AddGrid(theLand,0,2);
+    AddGrid(theLand,0,3);
+    AddGrid(theLand,1,2);
+    AddGrid(theLand,1,3);
+    AddGrid(theLand,2,3);
+    lands.insert(theLand);
 }
-void GameMap::AddGrid(Grid& newLand,int row,int colum){
-    newLand.AddGrid(grids[row][colum]);
-    grids[row][colum].setLand(newLand);
+void GameMap::AddGrid(Land *theLand,int row,int colum){
+    theLand->AddGrid(&grids[row][colum]);
+    grids[row][colum].setLand(theLand);
 }
 
 GameMap::~GameMap()
 {
-    for(set<Land&>::iterator it=lands.begin();it!=lands.end();it++){
-        delete it;
+    for(set<Land*>::iterator it=lands.begin();it!=lands.end();it++){
+        delete *it;
     }
 }
 
@@ -38,12 +39,13 @@ QColor GameMap::getColor(int index) const
 void GameMap::enter(int index){
     Land *homeLand = grids[index/20][index%20].getLand();
     if(homeLand)
-        homeLand->setColor(homeLand.color.lighter(80));
+        homeLand->Enter();
+
 }
 
 void GameMap::exit(int index){
-    Land& homeLand = grids[index/20][index%20].getLand();
+    Land *homeLand = grids[index/20][index%20].getLand();
     if(homeLand)
-        homeLand->setColor(homeLand.color);
+        homeLand->Exit();
 }
 

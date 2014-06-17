@@ -16,9 +16,9 @@ void Grid::setColor(QColor sColor){
     this->color = sColor;
 }
 
-void Grid::setLand(Land& newLand){
-    homeLand = &newLand;
+void Grid::setLand(Land *newLand){
+    homeLand = newLand;
 }
-Land& Grid::getLand(){
-    return *(this->homeLand);
+Land* Grid::getLand(){
+    return homeLand;
 }

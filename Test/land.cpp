@@ -3,7 +3,7 @@
 
 Land::Land()
 {
-    color = QColor(Qt::grey);
+    color = QColor(Qt::yellow);
 }
 
 
@@ -57,12 +57,20 @@ Land::~Land()
 //    newOwner.AddLand(*this);
 //}
 
-void Land::AddGrid(Grid& newGrid){
+void Land::AddGrid(Grid *newGrid){
     grids.insert(newGrid);
 }
 
 void Land::setColor(QColor color){
-    for(set<Grid&>::iterator it=grids.begin();it!=grids.end();it++){
-        it->setColor(color);
+    for(set<Grid*>::iterator it=grids.begin();it!=grids.end();it++){
+        (*it)->setColor(color);
     }
+}
+
+void Land::Enter(){
+    setColor(color.lighter(80));
+}
+
+void Land::Exit(){
+    setColor(color);
 }

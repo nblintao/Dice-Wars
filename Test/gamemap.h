@@ -13,16 +13,18 @@ class GameMap : public QObject
 
 public:
     explicit GameMap(QObject *parent = 0);
+    ~GameMap();
     Q_INVOKABLE QColor getColor(int index)const;
     Q_INVOKABLE void enter(int index);
+    Q_INVOKABLE void exit(int index);
     void setColor(int index,QColor sColor);
-    void AddGrid(Grid& newGrid,int row,int colum);
+    void AddGrid(Land *theLand,int row,int colum);
 signals:
     void sendColorChange(void);
 public slots:
 private:
     Grid grids[10][20];
-    set<Land&> lands;
+    set<Land*> lands;
 };
 
 #endif // GAMEMAP_H
