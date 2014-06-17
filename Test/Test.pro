@@ -5,7 +5,8 @@ QT += qml quick widgets
 SOURCES += main.cpp \
     grid.cpp \
     gamemap.cpp \
-    land.cpp
+    land.cpp \
+    player.cpp
 
 RESOURCES += qml.qrc
 
@@ -18,4 +19,5 @@ include(deployment.pri)
 HEADERS += \
     grid.h \
     gamemap.h \
-    land.h
+    land.h \
+    player.h
