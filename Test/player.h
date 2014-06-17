@@ -1,6 +1,7 @@
 #ifndef _PLAYER_H
 #define _PLAYER_H
 
+#include <QColor>
 #include <set>
 using namespace std;
 
@@ -11,10 +12,10 @@ class Player
 private:
     int ID;
     set<Land*> lands;
-    //int color;
     bool alive;
     int maxAdjacentLands;
     int remainDices;
+    QColor color;
 public:
     Player(int playerNumber);
     ~Player();
@@ -23,5 +24,8 @@ public:
     void Die();
     void AdjustMaxAdjacentLands();
     void EndTurn();
+    QColor getColor(){
+        return color;
+    }
 };
 #endif

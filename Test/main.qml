@@ -60,7 +60,7 @@ Rectangle {
            //     x:(index%10)*10;y:(index/10)*10;
                 //color:"#a020f0";
                 color:gameMap.getColor(index);
-                border.color:"white";
+                //border.color:"white";
 //                property var name:index;
 //                property var lastColor:"#a020f0";
       //          Text { text: index; font.pixelSize: 15; anchors.centerIn: parent }

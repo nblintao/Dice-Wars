@@ -3,6 +3,25 @@
 
 Player::Player(int playerNumber) :ID(playerNumber),alive(1), remainDices(0)
 {
+    switch(playerNumber){
+        case 0:{
+            color = QColor(Qt::yellow);
+            break;
+        }
+        case 1:{
+            color = QColor(Qt::red);
+            break;
+        }
+        case 2:{
+            color = QColor(Qt::green);
+            break;
+        }
+        default:{
+            color = QColor(Qt::black);
+            break;
+        }
+    }
+
 }
 
 

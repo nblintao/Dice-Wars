@@ -3,6 +3,7 @@
 
 Land::Land()
 {
+    owner = NULL;
     color = QColor(Qt::yellow);
 }
 
@@ -52,9 +53,11 @@ void Land::Attack(Land *attacked)
 
 void Land::ChangeOwner(Player *newOwner)
 {
-    owner->DeleteLand(this);
+    if(NULL != owner)
+        owner->DeleteLand(this);
     owner = newOwner;
     owner->AddLand(this);
+    color = owner->getColor();
 }
 
 void Land::AddGrid(Grid *newGrid){
