@@ -60,11 +60,6 @@ Rectangle {
            //     x:(index%10)*10;y:(index/10)*10;
                 //color:"#a020f0";
                 color:gameMap.getColor(index);
-                Image{
-                    x:(index*index)%10;y:10-(index*index)%10;
-                    source:"./Dice_20.png";
-                }
-
                 //border.color:"white";
 //                property var name:index;
 //                property var lastColor:"#a020f0";
