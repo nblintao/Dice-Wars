@@ -74,6 +74,15 @@ QColor GameMap::getColor(int index) const
 {
     return grids[index/20][index%20].getColor();
 }
+int GameMap::getDice(int index) const
+{
+    return grids[index/20][index%20].getDice();
+}
+void GameMap::setDice(int index,int diceSum){
+    Land *homeLand = grids[index/20][index%20].getLand();
+    if(homeLand)
+        homeLand->setDice(diceSum);
+}
 
 void GameMap::enter(int index){
     Land *homeLand = grids[index/20][index%20].getLand();

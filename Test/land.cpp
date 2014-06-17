@@ -5,6 +5,7 @@ Land::Land()
 {
     owner = NULL;
     color = QColor(Qt::yellow);
+    diceAmount=0;
 }
 
 
@@ -68,6 +69,27 @@ void Land::setColor(QColor color){
     for(set<Grid*>::iterator it=grids.begin();it!=grids.end();it++){
         (*it)->setColor(color);
     }
+}
+void Land::setDice(int diceSum){
+    int sum=0,tmp,no,f[200];
+    diceAmount=diceSum;
+    for(set<Grid*>::iterator it=grids.begin();it!=grids.end();it++){
+        (*it)->setDice(0);
+        f[sum++]=0;
+    }
+    tmp=diceSum;
+    no=0;
+    while(tmp){
+        if(f[no]==0){
+            f[no]=1;
+            tmp--;
+        }
+        no=(no+rand())%sum;
+    }
+    no=0;
+    for(set<Grid*>::iterator it=grids.begin();it!=grids.end();it++,no++)
+        if (f[no]==1)
+            (*it)->setDice(1);
 }
 
 void Land::Enter(){

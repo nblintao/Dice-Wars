@@ -27,6 +27,7 @@ public:
     void ChangeOwner(Player *newOwner);
     void AddGrid(Grid* newGrid);
     void setColor(QColor color);
+    void setDice(int diceSum);
     void Enter();
     void Exit();
     QColor getColor(){return color;}

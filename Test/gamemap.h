@@ -20,6 +20,8 @@ public:
     Q_INVOKABLE QColor getColor(int index)const;
     Q_INVOKABLE void enter(int index);
     Q_INVOKABLE void exit(int index);
+    Q_INVOKABLE int getDice(int index) const;
+    Q_INVOKABLE void setDice(int index,int diceSum);
     void setColor(int index,QColor sColor);
     void AddGrid(Land *theLand,int row,int colum);
     void AssignLand(Player *theplayer, Land *theLand);

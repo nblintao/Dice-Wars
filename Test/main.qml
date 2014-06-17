@@ -45,6 +45,24 @@ Rectangle {
     width: 1000; height: 600;
     color:"gray";
     Grid{
+        id:imageGrid;
+        z:100;
+        rows:10;
+        columns:20;
+        anchors.top: parent.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 10;
+        Repeater{
+            id:imageRep;
+            model:200;
+            Image{
+                width:40;
+                height:40;
+                x:index*index%10;y:10-index*index%10;
+                source:"./Dice_20.png";
+            }
+        }
+    }
+
+    Grid{
         id:grid
         rows:10;
         columns:20;
@@ -64,10 +82,7 @@ Rectangle {
 //                property var name:index;
 //                property var lastColor:"#a020f0";
       //          Text { text: index; font.pixelSize: 15; anchors.centerIn: parent }
-                Image{
-                    x:index*index%10;y:10-index*index%10;
-                    source:"./Dice_20.png";
-                }
+
 
                 MouseArea {
                     anchors.fill: parent
@@ -121,6 +136,13 @@ Rectangle {
 //                    onPressAndHold: btn.text = 'Press and hold'
                     onClicked:{
                         gameMap.enter(index);
+                        gameMap.setDice(index,3);
+                        for(var i=0;i<200;i++){
+                            if(gameMap.getDice(i)==1)
+                                imageRep.itemAt(i).source="Dice_20.png";
+                            else
+                                imageRep.itemAt(i).source="Transparent_20.png";
+                        }
                     }
 
 //                    onClicked:{
