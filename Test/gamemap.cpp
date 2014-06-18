@@ -49,41 +49,7 @@ GameMap::GameMap(QObject *parent) :
         }
     }
 
-
-/*
-    theLand = new Land;
-    AddGrid(theLand,0,1);
-    AddGrid(theLand,0,2);
-    AddGrid(theLand,0,3);
-    AddGrid(theLand,1,2);
-    AddGrid(theLand,1,3);
-    AddGrid(theLand,2,3);
-    AssignLand(players[rand()%playerAmount],theLand);
-    theLand->setDice(rand()%MAXDICE + 1);
-    lands.insert(theLand);
-
-    theLand = new Land;
-    AddGrid(theLand,0,4);
-    AddGrid(theLand,0,5);
-    AddGrid(theLand,0,6);
-    AddGrid(theLand,1,5);
-    AddGrid(theLand,1,6);
-    AddGrid(theLand,2,6);
-    AssignLand(players[rand()%playerAmount],theLand);
-    theLand->setDice(rand()%MAXDICE + 1);
-    lands.insert(theLand);
-
-    theLand = new Land;
-    AddGrid(theLand,3,1);
-    AddGrid(theLand,3,2);
-    AddGrid(theLand,3,3);
-    AddGrid(theLand,3,4);
-    AddGrid(theLand,2,4);
-    AddGrid(theLand,2,5);
-    AssignLand(players[rand()%playerAmount],theLand);
-    theLand->setDice(rand()%MAXDICE + 1);
-    lands.insert(theLand);
-*/
+    FindAdjacent();
 
     for(int i=0;i<10;i++){
         for(int j=0;j<20;j++){
@@ -106,6 +72,9 @@ void GameMap::AddGrid(Land *theLand,int row,int colum){
 GameMap::~GameMap()
 {
     for(set<Land*>::iterator it=lands.begin();it!=lands.end();it++){
+        delete *it;
+    }
+    for(vector<Player*>::iterator it=players.begin();it!=players.end();it++){
         delete *it;
     }
 }
@@ -185,3 +154,18 @@ void GameMap::AssignLand(Player *thePlayer, Land *theLand){
     theLand->ChangeOwner(thePlayer);
 }
 
+void GameMap::FindAdjacent(){
+    for (int i=0;i<9;i++)
+        for (int j=0;j<19;j++)
+        if (grids[i][j].getLand()!=0){
+            if ((grids[i][j].getLand()!=grids[i+1][j].getLand())&&(grids[i+1][j].getLand()!=0)){
+                grids[i][j].getLand()->AddAdjacent(grids[i+1][j].getLand());
+                grids[i+1][j].getLand()->AddAdjacent(grids[i][j].getLand());
+            }
+            if ((grids[i][j].getLand()!=grids[i][j+1].getLand())&&(grids[i][j+1].getLand()!=0)){
+                grids[i][j].getLand()->AddAdjacent(grids[i][j+1].getLand());
+                grids[i][j+1].getLand()->AddAdjacent(grids[i][j].getLand());
+            }
+            //if (grids[i][j].getLand()!=0) std::cout<<grids[i][j].getLand()->AdjacentLandsNumber()<<endl;
+        }
+}

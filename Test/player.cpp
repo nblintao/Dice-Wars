@@ -32,7 +32,7 @@ Player::~Player()
 void Player::AddLand(Land *theLand)
 {
     lands.insert(theLand);
-    this->AdjustMaxAdjacentLands();
+    //this->AdjustMaxAdjacentLands();
 }
 
 void Player::DeleteLand(Land *theLand)
@@ -41,7 +41,7 @@ void Player::DeleteLand(Land *theLand)
     if (this->lands.empty()) {
         this->Die();
     }
-    this->AdjustMaxAdjacentLands();
+    //this->AdjustMaxAdjacentLands();
 }
 void Player::Die()
 {
@@ -50,6 +50,7 @@ void Player::Die()
 }
 void Player::AdjustMaxAdjacentLands()
 {
+    std::cout<<"AdjustMaxAdjacentLands"<<endl;
     int maxAdjacentLands = 0;
     for (set<Land*>::iterator it = lands.begin(); it != lands.end(); it++) {
         /*找到与当前土地连通的同属一个人的土地数*/

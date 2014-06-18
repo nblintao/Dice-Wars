@@ -37,5 +37,9 @@ public:
     void Exit();
     QColor getColor(){return color;}
     bool BelongTo(Player *owner){return this->owner==owner;}
+    void AddAdjacent(Land *anotherLand){
+        adjacentLands.insert(anotherLand);
+    }
+
 };
 #endif

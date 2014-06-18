@@ -57,6 +57,7 @@ void Land::Attack(Land *attacked)
 }
 
 int Land::AdjacentLandsNumber(){
+    std::cout<<"Land::AdjacentLandsNumber"<<endl;
     queue<Land*> landQueue1;
     set<Land*> connectedLands;
     landQueue1.push(this);

@@ -27,6 +27,7 @@ public:
     void AddGrid(Land *theLand,int row,int colum);
     void AssignLand(Player *theplayer, Land *theLand);
     void ChangeAttaker(Land* newLand);
+    void FindAdjacent();
 signals:
     void sendColorChange(void);
 public slots:
