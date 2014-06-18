@@ -60,7 +60,9 @@ GameMap::GameMap(QObject *parent) :
     }
 
     attacker = NULL;
-
+    attackerColor=attackedColor=QColor(255,255,255);
+    diceAttacker="";
+    diceAttacked="";
     playerNow = players[0];
 
 }
@@ -114,9 +116,13 @@ void GameMap::click(int index){
         if((homeLand->BelongTo(playerNow))){
             if(homeLand->getDice() > 1)
                 ChangeAttaker(homeLand);
+                attackerColor=homeLand->getColor();
+                diceAttacker="";
+                diceAttacked="";
         }else{
             if((NULL != attacker) && (attacker->IsAdjacent(homeLand))){
-                attacker->Attack(homeLand);
+                attackedColor=homeLand->getColor();
+                attacker->Attack(homeLand,diceAttacker,diceAttacked);
                 ChangeAttaker(NULL);
             }
         }
@@ -131,9 +137,27 @@ void GameMap::ChangeAttaker(Land* newLand){
         attacker->setColor(Qt::black);
     }
 }
+QColor GameMap::getAttackerColor(){
+    return attackerColor;
+}
+QColor GameMap::getAttackedColor(){
+    return attackedColor;
+}
+QString GameMap::getAttackerDice(){
+    return diceAttacker;
+}
+QString GameMap::getAttackedDice(){
+    return diceAttacked;
+}
+QColor GameMap::getPlayerColor(){
+    return playerNow->getColor();
+}
 
 void GameMap::endTurn(){
     ChangeAttaker(NULL);
+    attackerColor=attackedColor=QColor(255,255,255);
+    diceAttacker="";
+    diceAttacked="";
     playerNow->AdjustMaxAdjacentLands();
     playerNow->AddDices();
     int index = playerNow->GetID();

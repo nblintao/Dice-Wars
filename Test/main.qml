@@ -145,6 +145,11 @@ Rectangle {
                                 imageRep.itemAt(i).source="Transparent_20.png";
                         }
                         for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                        playerfColor.color=gameMap.getAttackerColor();
+                        playersColor.color=gameMap.getAttackedColor();
+                        playerfPoint.text=gameMap.getAttackerDice();
+                        playersPoint.text=gameMap.getAttackedDice();
+                        playerColor.color=gameMap.getPlayerColor();
                     }
 
 //                    onClicked:{
@@ -180,7 +185,7 @@ Rectangle {
                 id:playerfColor;
                 width:30;
                 height:30;
-                color:"yellow";
+                color:"blue";
             }
             Text{
                 id:playerfPoint;
@@ -258,6 +263,11 @@ Rectangle {
                                 imageRep.itemAt(i).source="Transparent_20.png";
                         }
                         for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                        playerfColor.color=gameMap.getAttackerColor();
+                        playersColor.color=gameMap.getAttackedColor();
+                        playerfPoint.text=gameMap.getAttackerDice();
+                        playersPoint.text=gameMap.getAttackedDice();
+                        playerColor.color=gameMap.getPlayerColor();
                     }
                 }
 

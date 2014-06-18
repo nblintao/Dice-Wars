@@ -5,6 +5,7 @@
 #include "land.h"
 #include "player.h"
 #include <QObject>
+#include <QString>
 #include <set>
 #include <vector>
 #include <ctime>
@@ -23,6 +24,11 @@ public:
     Q_INVOKABLE void endTurn();
     Q_INVOKABLE int getDice(int index) const;
     Q_INVOKABLE void setDice(int index,int diceSum);
+    Q_INVOKABLE QColor getAttackerColor();
+    Q_INVOKABLE QColor getAttackedColor();
+    Q_INVOKABLE QColor getPlayerColor();
+    Q_INVOKABLE QString getAttackerDice();
+    Q_INVOKABLE QString getAttackedDice();
     void setColor(int index,QColor sColor);
     void AddGrid(Land *theLand,int row,int colum);
     void AssignLand(Player *theplayer, Land *theLand);
@@ -35,6 +41,8 @@ private:
     Grid grids[10][20];
     set<Land*> lands;
     vector<Player*> players;
+    QColor attackerColor,attackedColor;
+    QString diceAttacker,diceAttacked;
     Land *attacker;
 //    Land *attacked;
     Player *playerNow;

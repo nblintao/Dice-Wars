@@ -5,6 +5,7 @@
 #include "Player.h"
 #include <iostream>
 #include <set>
+#include <QString>
 #include <QColor>
 #include <queue>
 using namespace std;
@@ -27,7 +28,7 @@ public:
     ~Land();
     bool IsAdjacent(Land *anotherLand);
     int AdjacentLandsNumber();
-    void Attack(Land *attacked);
+    void Attack(Land *attacked,QString& diceAttacker,QString& diceAttacked);
     void ChangeOwner(Player *newOwner);
     void AddGrid(Grid* newGrid);
     void setColor(QColor color);
