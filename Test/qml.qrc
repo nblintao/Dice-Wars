@@ -3,6 +3,5 @@
         <file>main.qml</file>
         <file>Dice_20.png</file>
         <file>Transparent_20.png</file>
-        <file>c.csv</file>
     </qresource>
 </RCC>
