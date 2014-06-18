@@ -62,16 +62,18 @@ int Land::AdjacentLandsNumber(){
     set<Land*> connectedLands;
     landQueue1.push(this);
     connectedLands.insert(this);
+    std::cout<<"1"<<landQueue1.size()<<" "<<connectedLands.size()<<endl;
     while(!landQueue1.empty()){
         Land *theLand;
         theLand = landQueue1.front();
         for(set<Land*>::iterator it=theLand->adjacentLands.begin();it!=theLand->adjacentLands.end();it++){
             if((connectedLands.count(*it)==0) && ((*it)->owner == owner)){
-                landQueue1.push(this);
-                connectedLands.insert(this);
+                landQueue1.push(*it);
+                connectedLands.insert(*it);
             }
         }
         landQueue1.pop();
+        std::cout<<"1"<<landQueue1.size()<<" "<<connectedLands.size()<<endl;
     }
     return connectedLands.size();
 }
