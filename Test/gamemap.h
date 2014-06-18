@@ -26,6 +26,7 @@ public:
     void setColor(int index,QColor sColor);
     void AddGrid(Land *theLand,int row,int colum);
     void AssignLand(Player *theplayer, Land *theLand);
+    void ChangeAttaker(Land* newLand);
 signals:
     void sendColorChange(void);
 public slots:
@@ -34,7 +35,7 @@ private:
     set<Land*> lands;
     vector<Player*> players;
     Land *attacker;
-    Land *attacked;
+//    Land *attacked;
     Player *playerNow;
 };
 

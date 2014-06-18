@@ -56,6 +56,25 @@ void Land::Attack(Land *attacked)
     }
 }
 
+int Land::AdjacentLandsNumber(){
+    queue<Land*> landQueue1;
+    set<Land*> connectedLands;
+    landQueue1.push(this);
+    connectedLands.insert(this);
+    while(!landQueue1.empty()){
+        Land *theLand;
+        theLand = landQueue1.front();
+        for(set<Land*>::iterator it=theLand->adjacentLands.begin();it!=theLand->adjacentLands.end();it++){
+            if((connectedLands.count(*it)==0) && ((*it)->owner == owner)){
+                landQueue1.push(this);
+                connectedLands.insert(this);
+            }
+        }
+        landQueue1.pop();
+    }
+    return connectedLands.size();
+}
+
 void Land::ChangeOwner(Player *newOwner)
 {
     if(NULL != owner)

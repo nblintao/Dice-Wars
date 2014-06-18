@@ -53,14 +53,34 @@ void Player::AdjustMaxAdjacentLands()
     int maxAdjacentLands = 0;
     for (set<Land*>::iterator it = lands.begin(); it != lands.end(); it++) {
         /*找到与当前土地连通的同属一个人的土地数*/
+        int adjacentLands = (*it)->AdjacentLandsNumber();
+        if(adjacentLands>maxAdjacentLands){
+            maxAdjacentLands = adjacentLands;
+        }
     }
     this->maxAdjacentLands = maxAdjacentLands;
+    std::cout<<"max adjacent lands:"<<maxAdjacentLands<<endl;
 }
 
-void Player::EndTurn()
+void Player::AddDices()
 {
     /*赠送骰子*/
-    for (int i = 1; i <= this->maxAdjacentLands; i++) {
-        /*随机获取set<Land&> lands中的一个，diceAmount加一*/
+    vector<Land*> availableLands;
+    for(set<Land*>::iterator it=lands.begin();it!=lands.end();it++){
+        if((*it)->getDice() != MAXDICE)
+            availableLands.push_back(*it);
+    }
+    int freeDices = remainDices + maxAdjacentLands;
+    remainDices = 0;
+    for (int i = 1; i <= freeDices; i++) {
+        if(!availableLands.empty()){
+            int randLandNumber = rand()%availableLands.size();
+            Land *randLand = availableLands[randLandNumber];
+            randLand->setDice(randLand->getDice()+1);
+            if(randLand->getDice() == MAXDICE)
+                availableLands.erase(availableLands.begin()+randLandNumber);
+        }else{
+            remainDices++;
+        }
     }
 }

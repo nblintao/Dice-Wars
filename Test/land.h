@@ -6,9 +6,12 @@
 #include <iostream>
 #include <set>
 #include <QColor>
+#include <queue>
 using namespace std;
 
-//class Player;
+int const MAXDICE = 3;
+
+class Player;
 class Grid;
 class Land
 {
@@ -23,11 +26,13 @@ public:
     Land();
     ~Land();
     bool IsAdjacent(Land *anotherLand);
+    int AdjacentLandsNumber();
     void Attack(Land *attacked);
     void ChangeOwner(Player *newOwner);
     void AddGrid(Grid* newGrid);
     void setColor(QColor color);
     void setDice(int diceSum);
+    int getDice(){return diceAmount;}
     void Enter();
     void Exit();
     QColor getColor(){return color;}

@@ -4,11 +4,11 @@ using namespace std;
 GameMap::GameMap(QObject *parent) :
     QObject(parent)
 {
-//    for(int i=0;i<10;i++){
-//        for(int j=0;j<20;j++){
-//            grids[i][j].setColor(QColor(i*10,j*10,0));
-//        }
-//    }
+    for(int i=0;i<10;i++){
+        for(int j=0;j<20;j++){
+            grids[i][j].setColor(QColor(255-i*10,200,255-j*10));
+        }
+    }
     srand((unsigned)time(NULL));
 
     int const playerAmount = 2;
@@ -17,7 +17,7 @@ GameMap::GameMap(QObject *parent) :
         players.push_back(theplayer);
     }
 
-    int const MAXDICE = 3;
+
 
     Land *theLand;
 
@@ -94,7 +94,6 @@ GameMap::GameMap(QObject *parent) :
     }
 
     attacker = NULL;
-    attacked = NULL;
 
     playerNow = players[0];
 
@@ -141,26 +140,44 @@ void GameMap::exit(int index){
 void GameMap::click(int index){
     Land *homeLand = grids[index/20][index%20].getLand();
     if(NULL == homeLand){
-        attacker = attacked = NULL;
+        ChangeAttaker(NULL);
     }else{
-        if(homeLand->BelongTo(playerNow)){
-            if(NULL != attacker)
-                attacker->setColor(attacker->getColor());
-            attacker = homeLand;
-            attacker->setColor(Qt::black);
-            attacked = NULL;
+        if((homeLand->BelongTo(playerNow))){
+            if(homeLand->getDice() > 1)
+                ChangeAttaker(homeLand);
         }else{
             if((NULL != attacker) && (attacker->IsAdjacent(homeLand))){
-                attacked = homeLand;
-                attacker->Attack(attacked);
-                attacker->setColor(attacker->getColor());
-                attacker = attacked = NULL;
+                attacker->Attack(homeLand);
+                ChangeAttaker(NULL);
             }
         }
     }
 }
-void GameMap::endTurn(){
+void GameMap::ChangeAttaker(Land* newLand){
+    if(NULL != attacker){
+        attacker->setColor(attacker->getColor());
+    }
+    if(NULL != newLand){
+        attacker = newLand;
+        attacker->setColor(Qt::black);
+    }
+}
 
+void GameMap::endTurn(){
+    ChangeAttaker(NULL);
+    playerNow->AdjustMaxAdjacentLands();
+    playerNow->AddDices();
+    int index = playerNow->GetID();
+    do{        
+        index++;
+        if(index >= (int) players.size())
+            index=0;
+    }while(!players[index]->IsAlive());
+    if(playerNow == players[index]){
+        cout<<"GAME OVER! PLAYER "<<index<<" WIN!"<<endl;
+    }else{
+        playerNow = players[index];
+    }
 }
 
 void GameMap::AssignLand(Player *thePlayer, Land *theLand){

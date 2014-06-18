@@ -175,7 +175,7 @@ Rectangle {
        // border.width: 2;
         anchors.top: grid.bottom; anchors.left: grid.left; anchors.horizontalCenter: parent.horizontalCenter;
         Row{
-            anchors.left: grid.left; anchors.verticalCenter: parent.verticalCenter;anchors.horizontalCenter: parent.horizontalCenter;anchors.margins: realTimeStatus.border.width;
+            anchors.verticalCenter: parent.verticalCenter;anchors.horizontalCenter: parent.horizontalCenter;anchors.margins: realTimeStatus.border.width;
             Rectangle{
                 id:playerfColor;
                 width:30;
@@ -235,7 +235,7 @@ Rectangle {
             }
             Rectangle{
                 id:endTurn;
-                anchors.top: playerNotify.top;
+         //       anchors.top: playerNotify.top;
                 width:150;
                 height:37;
                 radius: 4;
@@ -246,6 +246,19 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter;
                     text:"END TURN";
                     font.pixelSize:23;
+                }
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        gameMap.endTurn();
+                        for(var i=0;i<200;i++){
+                            if(gameMap.getDice(i)==1)
+                                imageRep.itemAt(i).source="Dice_20.png";
+                            else
+                                imageRep.itemAt(i).source="Transparent_20.png";
+                        }
+                        for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                    }
                 }
 
 

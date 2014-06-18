@@ -3,9 +3,11 @@
 
 #include <QColor>
 #include <set>
+#include <vector>
+#include "land.h"
 using namespace std;
 
-class Land;
+//class Land;
 
 class Player
 {
@@ -19,11 +21,14 @@ private:
 public:
     Player(int playerNumber);
     ~Player();
+    int GetID(){return ID;}
+    bool IsAlive(){return alive;}
     void AddLand(Land *theLand);
     void DeleteLand(Land *theLand);
     void Die();
     void AdjustMaxAdjacentLands();
-    void EndTurn();
+    void AddDices();
+//    void EndTurn();
     QColor getColor(){
         return color;
     }
