@@ -63,6 +63,7 @@ void Land::ChangeOwner(Player *newOwner)
     owner = newOwner;
     owner->AddLand(this);
     color = owner->getColor();
+    setColor(color);
 }
 
 void Land::AddGrid(Grid *newGrid){
