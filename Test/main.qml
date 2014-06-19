@@ -334,4 +334,96 @@ Rectangle {
            }
        }
     }
+    Rectangle{
+        z:22;
+        id:finalWindow;
+//        color:"white";
+        anchors.top: parent.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 10;
+        width:welcomeWindow.width;
+        height:welcomeWindow.height;
+        color:"#FFFF00";
+        Rectangle{
+            height:finalWindow.height/1.1;
+            width:finalWindow.width/1.1;
+            anchors.verticalCenter: parent.verticalCenter;
+            anchors.horizontalCenter: parent.horizontalCenter;
+            radius:50;
+            color:"#FFFF99";
+            Column{
+                anchors.verticalCenter: parent.verticalCenter;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                width:parent.width;
+                Text{
+                    id:finnalMessage;
+                    text:"  Player 1 Wins";
+                    font.pixelSize: 70;
+                    font.bold: true;
+                    color:"#009966";
+                }
+                Text{
+                    text:"  Congratulations!";
+                    font.pixelSize: 70;
+                    font.bold: true;
+                    color:"#009966";
+                }
+                Rectangle{
+
+                    height:100;
+                    width:parent.width;
+                    color:"#FFFF99";
+              //      ColorAnimation on color{ from: "white"; to: "black"; duration: 20000 }
+                    Row{
+
+                        anchors.verticalCenter: parent.verticalCenter;
+                        anchors.horizontalCenter: parent.horizontalCenter;
+                       // width:parent.width;
+                      //  height:100;
+                        Rectangle{
+                            id:restartButton;
+                            width:200;
+                            height:50;
+                            radius:10;
+                            border.color: "white";
+                            color:"#FF9933";
+                            Text{
+                                anchors.verticalCenter: parent.verticalCenter;
+                                anchors.horizontalCenter: parent.horizontalCenter;
+                                text:"Restart";
+                                font.bold: true;
+                                font.pixelSize: 20;
+                            }
+                            MouseArea{
+                                anchors.fill: parent
+                            }
+                        }
+                        Rectangle{
+                            width:100;
+                            height:50;
+                            color:"#FFFF99";
+                        }
+                        Rectangle{
+                            id:quitButton;
+                            width:200;
+                            height:50;
+                            radius:10;
+                            border.color: "white";
+                            color:"#FF9933";
+                            Text{
+                                anchors.verticalCenter: parent.verticalCenter;
+                                anchors.horizontalCenter: parent.horizontalCenter;
+                                text:"Quit";
+                                font.bold: true;
+                                font.pixelSize: 20;
+                            }
+                            MouseArea{
+                                anchors.fill: parent
+                            }
+                        }
+                    }
+                }
+            }
+
+
+        }
+    }
 }
