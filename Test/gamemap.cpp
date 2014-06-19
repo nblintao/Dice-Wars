@@ -1,6 +1,9 @@
 #include "gamemap.h"
 using namespace std;
 
+extern const int MAXDICE = 5;
+const int playerAmount = 3;
+
 GameMap::GameMap(QObject *parent) :
     QObject(parent)
 {
@@ -11,7 +14,6 @@ GameMap::GameMap(QObject *parent) :
     }
     srand((unsigned)time(NULL));
 
-    int const playerAmount = 2;
     for(int playerNumber=0;playerNumber<playerAmount;playerNumber++){
         Player *theplayer = new Player(playerNumber);
         players.push_back(theplayer);

@@ -10,7 +10,7 @@
 #include <queue>
 using namespace std;
 
-int const MAXDICE = 3;
+extern const int MAXDICE;
 
 class Player;
 class Grid;
