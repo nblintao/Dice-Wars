@@ -126,6 +126,7 @@ Rectangle {
                 id:playerfColor;
                 width:30;
                 height:30;
+                radius: 5;
                 color:"white";
             }
             Text{
@@ -141,6 +142,7 @@ Rectangle {
                 id:playersColor;
                 width:30;
                 height:30;
+                radius: 5;
                 color:"white";
             }
             Text{
@@ -172,6 +174,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter;
                 width:30;
                 height:30;
+                radius: 5;
                 color:"white";
             }
             Text{
@@ -190,7 +193,7 @@ Rectangle {
                 Text{
                     anchors.verticalCenter: parent.verticalCenter;
                     anchors.horizontalCenter: parent.horizontalCenter;
-                    text:"END TURN";
+                    text:"End Turn";
                     font.family: "Helvetica [Cronyx]";
                     font.pixelSize:23;
                 }
