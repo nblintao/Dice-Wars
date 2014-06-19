@@ -82,7 +82,6 @@ int Land::AdjacentLandsNumber(){
     set<Land*> connectedLands;
     landQueue1.push(this);
     connectedLands.insert(this);
-    std::cout<<"1"<<landQueue1.size()<<" "<<connectedLands.size()<<endl;
     while(!landQueue1.empty()){
         Land *theLand;
         theLand = landQueue1.front();
@@ -93,7 +92,6 @@ int Land::AdjacentLandsNumber(){
             }
         }
         landQueue1.pop();
-        std::cout<<"1"<<landQueue1.size()<<" "<<connectedLands.size()<<endl;
     }
     return connectedLands.size();
 }

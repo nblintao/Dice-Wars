@@ -66,78 +66,28 @@ Rectangle {
         id:grid
         rows:10;
         columns:20;
-        //spacing:1;
         anchors.top: parent.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 10;
         Repeater{
             id:rep;
             model:200;
             Rectangle {
-            //    var tid="rec"+index;
-           //     id:rec;
                 width: 40; height: 40
-           //     x:(index%10)*10;y:(index/10)*10;
-                //color:"#a020f0";
                 color:gameMap.getColor(index);
-                //border.color:"white";
-//                property var name:index;
-//                property var lastColor:"#a020f0";
-      //          Text { text: index; font.pixelSize: 15; anchors.centerIn: parent }
-
-
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
                     property string buttonID
 
-//                    acceptedButtons: Qt.AllButtons
-                    // Value 'All.Buttons' is eqivalent to:
-                    // 'Qt::LeftButton | Qt::RightButton | Qt::MiddleButton  .... | Qt::ExtraButton24'
                     onEntered:{
-                        info.text = 'Entered '+index;
                         gameMap.enter(index);
                         for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                     }
                     onExited:{
-                        info.text = 'Exited '+index+' (pressed=' + pressed + ')';
                         gameMap.exit(index);
                         for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                     }
-
-//                    onExited: {
-//                                    info.text = 'Exited '+index+' (pressed=' + pressed + ')';
-//                                    rep.itemAt(index).color=lastColor;
-//                              }
-//                    onPressed: {
-//                        if (mouse.button == Qt.LeftButton)
-//                            buttonID = 'LeftButton'
-//                        else if (mouse.button == Qt.RightButton)
-//                            buttonID = 'RightButton'
-//                        else if (mouse.button == Qt.MidButton)
-//                            buttonID = 'MiddleButton'
-//                        else if (mouse.button == Qt.BackButton)
-//                            buttonID = 'BackButton'
-//                        else if (mouse.button == Qt.ForwardButton)
-//                            buttonID = 'ForwardButton'
-//                        else if (mouse.button == Qt.TaskButton)
-//                            buttonID = 'TaskButton';
-//                        info.text = 'Pressed (' + buttonID + ' shift='
-//                            + (mouse.modifiers & Qt.ShiftModifier ? 'true' : 'false') + ')'
-//                        var posInBox = rep.itemAt(index).mapToItem(box, mouse.x, mouse.y)
-//                        posInfo.text = + mouse.x + ',' + mouse.y + ' in square'
-//                                + ' (' + posInBox.x + ',' + posInBox.y + ' in window)'
-//                    }
-
-//                    onReleased: {
-//                        btn.text = 'Released (isClick=' + mouse.isClick + ' wasHeld=' + mouse.wasHeld + ')'
-//                        posInfo.text = ''
-//                    }
-
-//                    //! [clicks]
-//                    onPressAndHold: btn.text = 'Press and hold'
                     onClicked:{
                         gameMap.click(index);
-
-//                        gameMap.setDice(index,3);
                         for(var i=0;i<200;i++){
                             if(gameMap.getDice(i)==1)
                                 imageRep.itemAt(i).source="Dice_20.png";
@@ -151,23 +101,6 @@ Rectangle {
                         playersPoint.text=gameMap.getAttackedDice();
                         playerColor.color=gameMap.getPlayerColor();
                     }
-
-//                    onClicked:{
-//                                btn.text = 'Clicked '+index+' (wasHeld=' + mouse.wasHeld + ')';
-//                                if (rep.itemAt(index).lastColor=="#a020f0")
-//                                {
-//                                    rep.itemAt(index).color="#ffffff";
-//                                    rep.itemAt(index).lastColor="#ffffff";
-//                                }
-//                                else
-//                                {
-//                                   rep.itemAt(index).lastColor="#a020f0";
-//                                   rep.itemAt(index).color="#da70d6";
-//                                }
-//                              }
-
-//                    onDoubleClicked: btn.text = 'Double clicked'
-//                    //! [clicks]
                 }
             }
         }
@@ -176,8 +109,6 @@ Rectangle {
     Rectangle{
         id:realTimeStatus
         width: grid.width; height: 40;
-       // border.color:"#404040";
-       // border.width: 2;
         anchors.top: grid.bottom; anchors.left: grid.left; anchors.horizontalCenter: parent.horizontalCenter;
         Row{
             anchors.verticalCenter: parent.verticalCenter;anchors.horizontalCenter: parent.horizontalCenter;anchors.margins: realTimeStatus.border.width;
@@ -214,8 +145,6 @@ Rectangle {
     Rectangle{
         id:playerNotify
         width: grid.width; height: 40;
-  //      border.color:"#404040";
- //       border.width: 2;
         anchors.top: realTimeStatus.bottom; anchors.left: grid.left; anchors.horizontalCenter: parent.horizontalCenter;
         Row{
             anchors.horizontalCenter: parent.horizontalCenter;anchors.verticalCenter: parent.verticalCenter;anchors.margins: 2;
@@ -240,13 +169,11 @@ Rectangle {
             }
             Rectangle{
                 id:endTurn;
-         //       anchors.top: playerNotify.top;
                 width:150;
                 height:37;
                 radius: 4;
                 color:"#737373";
                 Text{
-        //            anchors.top:parent.top;
                     anchors.verticalCenter: parent.verticalCenter;
                     anchors.horizontalCenter: parent.horizontalCenter;
                     text:"END TURN";
@@ -275,21 +202,4 @@ Rectangle {
             }
         }
     }
-    Text {
-        id: info
-        anchors.bottom: btn.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 20
-
-        //onTextChanged: console.log(text)
-    }
-
-    Text {
-        id: btn
-        anchors.bottom: posInfo.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 20
-    }
-
-    Text {
-        id: posInfo
-        anchors.bottom: parent.bottom; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 20
-    }
-
 }
