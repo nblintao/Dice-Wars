@@ -5,19 +5,31 @@ Player::Player(int playerNumber) :ID(playerNumber),alive(1), remainDices(0)
 {
     switch(playerNumber){        //different grid color represent different players' land.
         case 0:{
-            color = QColor(Qt::yellow);
+            color = QColor(255,255,0);
             break;
         }
         case 1:{
-            color = QColor(Qt::red);
+            color = QColor(255,0,0);
             break;
         }
         case 2:{
-            color = QColor(Qt::green);
+            color = QColor(0,255,0);
+            break;
+        }
+        case 3:{
+            color = QColor(0,0,255);
+            break;
+        }
+        case 4:{
+            color = QColor(255,0,255);
+            break;
+        }
+        case 5:{
+            color = QColor(0,255,255);
             break;
         }
         default:{
-            color = QColor(Qt::black);
+            color = QColor(255,255,255);
             break;
         }
     }
