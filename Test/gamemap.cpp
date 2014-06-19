@@ -74,7 +74,7 @@ void GameMap::initialize(){
 }
 
 void GameMap::gameOver(){
-    status = 0;
+    status = 2;
     for(set<Land*>::iterator it=lands.begin();it!=lands.end();it++){
         delete *it;
     }
@@ -116,8 +116,6 @@ void GameMap::enter(int index){
     Land *homeLand = grids[index/20][index%20].getLand();
     if(homeLand && (homeLand != attacker))
         homeLand->Enter();
-    std::cout<<"enter"<<endl;
-
 }
 
 void GameMap::exit(int index){
@@ -145,6 +143,8 @@ void GameMap::click(int index){
             }
         }
     }
+    if(IsLastPlayer())
+        gameOver();
 }
 void GameMap::ChangeAttaker(Land* newLand){
     if(NULL != attacker){
@@ -184,12 +184,12 @@ void GameMap::endTurn(){
         if(index >= (int) players.size())
             index=0;
     }while(!players[index]->IsAlive());
-    if(playerNow == players[index]){
-        cout<<"GAME OVER! PLAYER "<<index<<" WIN!"<<endl;
-        gameOver();
-    }else{
+//    if(playerNow == players[index]){
+//        cout<<"GAME OVER! PLAYER "<<index<<" WIN!"<<endl;
+//        gameOver();
+//    }else{
         playerNow = players[index];
-    }
+//    }
 }
 
 void GameMap::AssignLand(Player *thePlayer, Land *theLand){

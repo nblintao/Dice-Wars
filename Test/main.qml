@@ -92,18 +92,22 @@ Rectangle {
                     onClicked:{
                         if(gameMap.getStatus()===1){
                             gameMap.click(index);
-                            for(var i=0;i<200;i++){
-                                if(gameMap.getDice(i)==1)
-                                    imageRep.itemAt(i).source="Dice_20.png";
-                                else
-                                    imageRep.itemAt(i).source="Transparent_20.png";
+                            if(gameMap.getStatus()===2){
+                                finalWindow.z=22;
+                            }else{
+                                for(var i=0;i<200;i++){
+                                    if(gameMap.getDice(i)==1)
+                                        imageRep.itemAt(i).source="Dice_20.png";
+                                    else
+                                        imageRep.itemAt(i).source="Transparent_20.png";
+                                }
+                                for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                                playerfColor.color=gameMap.getAttackerColor();
+                                playersColor.color=gameMap.getAttackedColor();
+                                playerfPoint.text=gameMap.getAttackerDice();
+                                playersPoint.text=gameMap.getAttackedDice();
+                                playerColor.color=gameMap.getPlayerColor();
                             }
-                            for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
-                            playerfColor.color=gameMap.getAttackerColor();
-                            playersColor.color=gameMap.getAttackedColor();
-                            playerfPoint.text=gameMap.getAttackerDice();
-                            playersPoint.text=gameMap.getAttackedDice();
-                            playerColor.color=gameMap.getPlayerColor();
                         }
                     }
                 }
@@ -382,7 +386,7 @@ Rectangle {
        }
     }
     Rectangle{
-        z:22;
+        z:-10;
         id:finalWindow;
 //        color:"white";
         anchors.top: parent.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 10;
@@ -444,6 +448,26 @@ Rectangle {
                             }
                             MouseArea{
                                 anchors.fill: parent
+                                hoverEnabled: true
+                                onEntered: {
+                                    restartButton.color = "#FFFF00";
+                                }
+                                onExited: {
+                                    restartButton.color = "#FF9933";
+                                }
+                                onClicked: {
+                                    if(gameMap.getStatus()===2){
+                                        gameMap.initialize();
+                                        for(var i=0;i<200;i++){
+                                            if(gameMap.getDice(i)==1)
+                                                imageRep.itemAt(i).source="Dice_20.png";
+                                            else
+                                                imageRep.itemAt(i).source="Transparent_20.png";
+                                        }
+                                        for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                                        finalWindow.z=-10;
+                                    }
+                                }
                             }
                         }
                         Rectangle{

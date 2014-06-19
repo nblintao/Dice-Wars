@@ -44,7 +44,6 @@ Player::~Player()
 void Player::AddLand(Land *theLand)
 {
     lands.insert(theLand);
-    //this->AdjustMaxAdjacentLands();
 }
 
 void Player::DeleteLand(Land *theLand)
@@ -53,12 +52,12 @@ void Player::DeleteLand(Land *theLand)
     if (this->lands.empty()) {
         this->Die();
     }
-    //this->AdjustMaxAdjacentLands();
 }
 void Player::Die()
 {
     std::cout << "PLAYER " << this->ID << " DIE" << endl;
     this->alive = 0;
+//    gameMap.playerDie();
 }
 void Player::AdjustMaxAdjacentLands()
 {
