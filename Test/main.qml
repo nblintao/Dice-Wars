@@ -42,7 +42,7 @@ import QtQuick 2.0
 
 Rectangle {
     id: box
-    width: 1000; height: 600;
+    width: 850; height: 500;
     color:"gray";
     Grid{
         id:imageGrid;

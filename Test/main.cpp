@@ -19,6 +19,8 @@ int main(int argc, char* argv[])
           QGuiApplication::platformName() == QLatin1String("eglfs")) {
         view.showFullScreen();
     } else {
+        view.setMaximumSize(QSize(850,500));
+        view.setMinimumSize(QSize(850,500));
         view.show();
     }
     return app.exec();
