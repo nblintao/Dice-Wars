@@ -3,7 +3,7 @@
 
 Player::Player(int playerNumber) :ID(playerNumber),alive(1), remainDices(0)
 {
-    switch(playerNumber){
+    switch(playerNumber){        //different grid color represent different players' land.
         case 0:{
             color = QColor(Qt::yellow);
             break;
@@ -50,10 +50,9 @@ void Player::Die()
 }
 void Player::AdjustMaxAdjacentLands()
 {
-    std::cout<<"AdjustMaxAdjacentLands"<<endl;
+    //std::cout<<"AdjustMaxAdjacentLands"<<endl;
     int maxAdjacentLands = 0;
     for (set<Land*>::iterator it = lands.begin(); it != lands.end(); it++) {
-        /*找到与当前土地连通的同属一个人的土地数*/
         int adjacentLands = (*it)->AdjacentLandsNumber();
         if(adjacentLands>maxAdjacentLands){
             maxAdjacentLands = adjacentLands;
@@ -65,20 +64,19 @@ void Player::AdjustMaxAdjacentLands()
 
 void Player::AddDices()
 {
-    /*赠送骰子*/
     vector<Land*> availableLands;
     for(set<Land*>::iterator it=lands.begin();it!=lands.end();it++){
         if((*it)->getDice() != MAXDICE)
             availableLands.push_back(*it);
     }
-    int freeDices = remainDices + maxAdjacentLands;
+    int freeDices = remainDices + maxAdjacentLands;   //decide the number of dices will be added.
     remainDices = 0;
     for (int i = 1; i <= freeDices; i++) {
         if(!availableLands.empty()){
-            int randLandNumber = rand()%availableLands.size();
+            int randLandNumber = rand()%availableLands.size();   //choose where to add randomly.
             Land *randLand = availableLands[randLandNumber];
             randLand->setDice(randLand->getDice()+1);
-            if(randLand->getDice() == MAXDICE)
+            if(randLand->getDice() == MAXDICE)     //when the land is full, dices cannot be added.
                 availableLands.erase(availableLands.begin()+randLandNumber);
         }else{
             remainDices++;

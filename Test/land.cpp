@@ -16,7 +16,7 @@ Land::~Land()
 
 bool Land::IsAdjacent(Land *anotherLand)
 {
-    return adjacentLands.count(anotherLand);
+    return adjacentLands.count(anotherLand);   //judge whether two lands are adjacent.
 }
 
 void Land::Attack(Land *attacked,QString& diceAttacker,QString& diceAttacked)
@@ -29,7 +29,7 @@ void Land::Attack(Land *attacked,QString& diceAttacker,QString& diceAttacked)
     diceAttacker="";
     diceAttacked="";
     std::cout << "attacker: " << endl;
-    for (int i = 0; i < this->diceAmount; i++) {
+    for (int i = 0; i < this->diceAmount; i++) {  //give each dice the number they show.
         dots = rand() % 6 + 1;
         std::cout << dots << endl;
         attackerDots += dots;
@@ -61,22 +61,20 @@ void Land::Attack(Land *attacked,QString& diceAttacker,QString& diceAttacked)
     tmpString.setNum(attackedDots);
     diceAttacked=diceAttacked+" = "+tmpString;
     std::cout << "=" << attackedDots << endl;
-    /*攻击成功*/
-    if (attackerDots>attackedDots) {
+    if (attackerDots>attackedDots) {           //if the attack is a success.
         attacked->ChangeOwner(this->owner);
         //attacked->diceAmount = this->diceAmount - 1;
         attacked->setDice(this->diceAmount - 1);
         //this->diceAmount = 1;
         setDice(1);
     }
-    /*攻击失败*/
-    else {
+    else {                                   //if the attack is a failure.
         //this->diceAmount = 1;
         setDice(1);
     }
 }
 
-int Land::AdjacentLandsNumber(){
+int Land::AdjacentLandsNumber(){          //count adjacent number to determine how much dices will be added.
     std::cout<<"Land::AdjacentLandsNumber"<<endl;
     queue<Land*> landQueue1;
     set<Land*> connectedLands;
@@ -97,7 +95,7 @@ int Land::AdjacentLandsNumber(){
 }
 
 void Land::ChangeOwner(Player *newOwner)
-{
+{                                            //when attack successfully, the owner is another player.
     if(NULL != owner)
         owner->DeleteLand(this);
     owner = newOwner;
@@ -115,7 +113,7 @@ void Land::setColor(QColor color){
         (*it)->setColor(color);
     }
 }
-void Land::setDice(int diceSum){
+void Land::setDice(int diceSum){  //distribute dices to grids in a land.
     int sum=0,tmp,no,f[200];
     diceAmount=diceSum;
     for(set<Grid*>::iterator it=grids.begin();it!=grids.end();it++){

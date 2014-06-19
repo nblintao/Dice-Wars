@@ -9,13 +9,13 @@ GameMap::GameMap(QObject *parent) :
 {
     for(int i=0;i<10;i++){
         for(int j=0;j<20;j++){
-            grids[i][j].setColor(QColor(255-i*10,200,255-j*10));
+            grids[i][j].setColor(QColor(255-i*10,200,255-j*10)); //get a more beautiful backgroud.
         }
     }
     srand((unsigned)time(NULL));
 
     for(int playerNumber=0;playerNumber<playerAmount;playerNumber++){
-        Player *theplayer = new Player(playerNumber);
+        Player *theplayer = new Player(playerNumber);            //set all players.
         players.push_back(theplayer);
     }
 
@@ -30,7 +30,7 @@ GameMap::GameMap(QObject *parent) :
         for (int i=0;i<10;i++)
         for (int j=0;j<20;j++){
             fscanf(fp,"%d",&map[i][j]);
-            fscanf(fp,"%c",&temp);
+            fscanf(fp,"%c",&temp);          //get the map from the file.
         }
     }
     for (int index=1;index<30;index++){
@@ -39,7 +39,7 @@ GameMap::GameMap(QObject *parent) :
         for (int i=0;i<10;i++){
             for (int j=0;j<20;j++){
                 if (map[i][j]==index){
-                    AddGrid(theLand,i,j);
+                    AddGrid(theLand,i,j);   //build each object of lands.
                     nothing = 0;
                 }
             }
@@ -47,7 +47,7 @@ GameMap::GameMap(QObject *parent) :
         if(0 == nothing){
             AssignLand(players[rand()%playerAmount],theLand);
             theLand->setDice(rand()%MAXDICE + 1);
-            lands.insert(theLand);
+            lands.insert(theLand);            //determine the dice number randomly.
         }
     }
 
@@ -56,7 +56,7 @@ GameMap::GameMap(QObject *parent) :
     for(int i=0;i<10;i++){
         for(int j=0;j<20;j++){
             Land *homeLand = grids[i][j].getLand();
-            if(NULL != homeLand)
+            if(NULL != homeLand)              //set color for each players.
                 grids[i][j].setColor(homeLand->getColor());
         }
     }
@@ -73,7 +73,7 @@ void GameMap::AddGrid(Land *theLand,int row,int colum){
     grids[row][colum].setLand(theLand);
 }
 
-GameMap::~GameMap()
+GameMap::~GameMap()        //the destructor of map
 {
     for(set<Land*>::iterator it=lands.begin();it!=lands.end();it++){
         delete *it;
@@ -115,13 +115,13 @@ void GameMap::click(int index){
     if(NULL == homeLand){
         ChangeAttaker(NULL);
     }else{
-        if((homeLand->BelongTo(playerNow))){
+        if((homeLand->BelongTo(playerNow))){  //when user click another land of himself, it means changing the attacker.
             if(homeLand->getDice() > 1)
                 ChangeAttaker(homeLand);
                 attackerColor=homeLand->getColor();
                 diceAttacker="";
                 diceAttacked="";
-        }else{
+        }else{                         //when user click another land of others, it means attacking him.
             if((NULL != attacker) && (attacker->IsAdjacent(homeLand))){
                 attackedColor=homeLand->getColor();
                 attacker->Attack(homeLand,diceAttacker,diceAttacked);
@@ -161,7 +161,7 @@ void GameMap::endTurn(){
     diceAttacker="";
     diceAttacked="";
     playerNow->AdjustMaxAdjacentLands();
-    playerNow->AddDices();
+    playerNow->AddDices();           //when a turn ends, dice numbers should be adjusted.
     int index = playerNow->GetID();
     do{        
         index++;
@@ -180,18 +180,17 @@ void GameMap::AssignLand(Player *thePlayer, Land *theLand){
     theLand->ChangeOwner(thePlayer);
 }
 
-void GameMap::FindAdjacent(){
+void GameMap::FindAdjacent(){    //find all the adjacent lands by going through the map.
     for (int i=0;i<9;i++)
         for (int j=0;j<19;j++)
-        if (grids[i][j].getLand()!=0){
+        if (grids[i][j].getLand()!=0){               //check if two grids belong to different lands.
             if ((grids[i][j].getLand()!=grids[i+1][j].getLand())&&(grids[i+1][j].getLand()!=0)){
                 grids[i][j].getLand()->AddAdjacent(grids[i+1][j].getLand());
-                grids[i+1][j].getLand()->AddAdjacent(grids[i][j].getLand());
+                grids[i+1][j].getLand()->AddAdjacent(grids[i][j].getLand());   //set each other as adjacent.
             }
             if ((grids[i][j].getLand()!=grids[i][j+1].getLand())&&(grids[i][j+1].getLand()!=0)){
                 grids[i][j].getLand()->AddAdjacent(grids[i][j+1].getLand());
                 grids[i][j+1].getLand()->AddAdjacent(grids[i][j].getLand());
             }
-            //if (grids[i][j].getLand()!=0) std::cout<<grids[i][j].getLand()->AdjacentLandsNumber()<<endl;
         }
 }
