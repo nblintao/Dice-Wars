@@ -3,5 +3,7 @@
         <file>main.qml</file>
         <file>Dice_20.png</file>
         <file>Transparent_20.png</file>
+        <file>Header.png</file>
+        <file>Dice_40.png</file>
     </qresource>
 </RCC>

@@ -46,7 +46,7 @@ Rectangle {
     color:"gray";
     Grid{
         id:imageGrid;
-        z:100;
+        z:20;
         rows:10;
         columns:20;
         anchors.top: parent.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 10;
@@ -201,5 +201,137 @@ Rectangle {
 
             }
         }
+    }
+    Rectangle{
+        id:welcomeWindow
+        z:21;
+        color:"white";
+        anchors.top: parent.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 10;
+        width:grid.width;
+        height:grid.height+realTimeStatus.height+playerNotify.height;
+        Rectangle{
+            id:firstSubwelcomeWindow;
+            anchors.left: parent.left;
+            width:grid.width/3;
+            height:welcomeWindow.height;
+            Grid {
+                id:welcomePicture;
+                y:firstSubwelcomeWindow.height/3.8;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                columns: 3
+                spacing: 2
+                Rectangle { color: "#FF6666"; width: 50*1.5; height: 50*1.5 }
+                Rectangle { color: "#FFFF66"; width: 20*1.5; height: 50*1.5 }
+                Rectangle { color: "#99CC66"; width: 50*1.5; height: 20*1.5 }
+                Rectangle { color: "#99CCFF"; width: 50*1.5; height: 50*1.5 }
+                Rectangle { color: "#CCFFFF"; width: 10*1.5; height: 10*1.5 }
+            }
+            Rectangle{
+                id:startRectangle;
+                y:firstSubwelcomeWindow.height/1.46;
+                height:40;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                Row{
+                    height:40;
+                    anchors.horizontalCenter: parent.horizontalCenter;
+                    Image{
+                        source:"Dice_40.png";
+                    }
+                    Rectangle{
+                        id:startButton;
+                        height:40;
+                        width:150;
+                        radius: 5;
+                        border.color: "white"
+                        color:"#6699CC";
+                        Rectangle{
+                            anchors.verticalCenter: parent.verticalCenter;
+                            anchors.horizontalCenter: parent.horizontalCenter;
+                            height:32;
+                            width:142;
+                            radius:3;
+                            color:"#99CCFF";
+                        }
+                        Text{
+                            anchors.verticalCenter: parent.verticalCenter;
+                            anchors.horizontalCenter: parent.horizontalCenter;
+                            text:"Start";
+                            font.pixelSize: 25;
+                            color:"#666699";
+                            font.bold: true;
+                        }
+                        MouseArea{
+                            anchors.fill: parent
+                        }
+                    }
+                }
+            }
+       }
+       Rectangle{
+           id:secondSubwelcomeWindow;
+           anchors.left:firstSubwelcomeWindow.right;
+           width:welcomeWindow.width-firstSubwelcomeWindow.width;
+           height:welcomeWindow.height;
+           Column{
+               anchors.verticalCenter: parent.verticalCenter;
+               anchors.horizontalCenter: parent.horizontalCenter;
+               Image{
+                   width:secondSubwelcomeWindow.width;
+                   height:secondSubwelcomeWindow.width*0.4;
+                   source:"Header.png"
+               }
+               Rectangle{
+                   width:secondSubwelcomeWindow.width;
+                   height:50;
+                   Row{
+                       anchors.horizontalCenter: parent.horizontalCenter
+                       Repeater{
+                           model:5;
+                           Rectangle{
+                               height:50;
+                               width:50;
+                               border.color: "white";
+                               color:"#CC9933";
+                               radius: 5;
+                               Rectangle{
+                                   anchors.verticalCenter: parent.verticalCenter;
+                                   anchors.horizontalCenter: parent.horizontalCenter;
+                                   height:40;
+                                   width:40;
+                                   radius: 20;
+                                   color:"#FFFF99";
+                               }
+                               Text{
+                                   anchors.verticalCenter: parent.verticalCenter;
+                                   anchors.horizontalCenter: parent.horizontalCenter;
+                                   text:index+1;
+                                   font.pixelSize: 20;
+                                   font.bold: true
+                                   color:"#CCCC33";
+                               }
+                               MouseArea{
+                                   anchors.fill: parent
+                               }
+                           }
+                       }
+                       Rectangle{
+                           height:50;
+                           width:200;
+                           radius: 5;
+                           border.color: "white";
+                           color:"#CCCC00";
+                           Text{
+                               anchors.verticalCenter: parent.verticalCenter;
+                               anchors.horizontalCenter: parent.horizontalCenter;
+                               text:"Players";
+                               font.pixelSize: 30;
+                               font.bold: true;
+                               color:"#666600";
+                           }
+                       }
+                   }
+               }
+           }
+       }
     }
 }
