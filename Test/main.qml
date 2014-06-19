@@ -77,29 +77,34 @@ Rectangle {
                     anchors.fill: parent
                     hoverEnabled: true
                     property string buttonID
-
                     onEntered:{
-                        gameMap.enter(index);
-                        for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                        if(gameMap.getStatus()===1){
+                            gameMap.enter(index);
+                            for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                        }
                     }
                     onExited:{
-                        gameMap.exit(index);
-                        for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                        if(gameMap.getStatus()===1){
+                            gameMap.exit(index);
+                            for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                        }
                     }
                     onClicked:{
-                        gameMap.click(index);
-                        for(var i=0;i<200;i++){
-                            if(gameMap.getDice(i)==1)
-                                imageRep.itemAt(i).source="Dice_20.png";
-                            else
-                                imageRep.itemAt(i).source="Transparent_20.png";
+                        if(gameMap.getStatus()===1){
+                            gameMap.click(index);
+                            for(var i=0;i<200;i++){
+                                if(gameMap.getDice(i)==1)
+                                    imageRep.itemAt(i).source="Dice_20.png";
+                                else
+                                    imageRep.itemAt(i).source="Transparent_20.png";
+                            }
+                            for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                            playerfColor.color=gameMap.getAttackerColor();
+                            playersColor.color=gameMap.getAttackedColor();
+                            playerfPoint.text=gameMap.getAttackerDice();
+                            playersPoint.text=gameMap.getAttackedDice();
+                            playerColor.color=gameMap.getPlayerColor();
                         }
-                        for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
-                        playerfColor.color=gameMap.getAttackerColor();
-                        playersColor.color=gameMap.getAttackedColor();
-                        playerfPoint.text=gameMap.getAttackerDice();
-                        playersPoint.text=gameMap.getAttackedDice();
-                        playerColor.color=gameMap.getPlayerColor();
                     }
                 }
             }
@@ -253,6 +258,7 @@ Rectangle {
                             color:"#99CCFF";
                         }
                         Text{
+                            id:startText
                             anchors.verticalCenter: parent.verticalCenter;
                             anchors.horizontalCenter: parent.horizontalCenter;
                             text:"Start";
@@ -262,6 +268,30 @@ Rectangle {
                         }
                         MouseArea{
                             anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: {
+                                startButton.color = "#330066";
+//                                startText.font.pixelSize = 30;
+                                startText.font.italic = true;
+                            }
+                            onExited: {
+                                startButton.color = "#6699CC";
+//                                startText.font.pixelSize = 25;
+                                startText.font.italic = false;
+                            }
+                            onClicked:{
+                                if(gameMap.getStatus()===0){
+                                    gameMap.initialize();
+                                    for(var i=0;i<200;i++){
+                                        if(gameMap.getDice(i)==1)
+                                            imageRep.itemAt(i).source="Dice_20.png";
+                                        else
+                                            imageRep.itemAt(i).source="Transparent_20.png";
+                                    }
+                                    for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                                    welcomeWindow.z=-5;
+                                }
+                            }
                         }
                     }
                 }
@@ -286,6 +316,7 @@ Rectangle {
                    Row{
                        anchors.horizontalCenter: parent.horizontalCenter
                        Repeater{
+                           id :selectNumber
                            model:5;
                            Rectangle{
                                height:50;
@@ -294,6 +325,7 @@ Rectangle {
                                color:"#CC9933";
                                radius: 5;
                                Rectangle{
+                                   id:playerAmountRec
                                    anchors.verticalCenter: parent.verticalCenter;
                                    anchors.horizontalCenter: parent.horizontalCenter;
                                    height:40;
@@ -302,15 +334,30 @@ Rectangle {
                                    color:"#FFFF99";
                                }
                                Text{
+                                   id:playerAmount
                                    anchors.verticalCenter: parent.verticalCenter;
                                    anchors.horizontalCenter: parent.horizontalCenter;
-                                   text:index+1;
+                                   text:index+2;
                                    font.pixelSize: 20;
                                    font.bold: true
-                                   color:"#CCCC33";
+                                   color:"#000000";
                                }
                                MouseArea{
                                    anchors.fill: parent
+                                   hoverEnabled: true
+                                   onEntered: {
+                                       playerAmountRec.color="#CC9933";
+                                   }
+                                   onExited: {
+                                       playerAmountRec.color="#FFFF99";
+                                   }
+
+                                   onClicked: {
+                                       gameMap.setPlayer(index+2);
+                                       for(var i=0;i<selectNumber.model;i++)
+                                       selectNumber.itemAt(i).color = "#CC9933";
+                                       color = "#FFFF99";
+                                   }
                                }
                            }
                        }

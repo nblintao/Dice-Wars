@@ -17,6 +17,8 @@ class GameMap : public QObject
 public:
     explicit GameMap(QObject *parent = 0);
     ~GameMap();
+    Q_INVOKABLE void initialize();
+    Q_INVOKABLE void gameOver();
     Q_INVOKABLE QColor getColor(int index)const;
     Q_INVOKABLE void enter(int index);
     Q_INVOKABLE void exit(int index);
@@ -29,6 +31,8 @@ public:
     Q_INVOKABLE QColor getPlayerColor();
     Q_INVOKABLE QString getAttackerDice();
     Q_INVOKABLE QString getAttackedDice();
+    Q_INVOKABLE int getStatus(){return status;}
+    Q_INVOKABLE void setPlayer(int playerAmount){this->playerAmount=playerAmount;}
     void setColor(int index,QColor sColor);
     void AddGrid(Land *theLand,int row,int colum);
     void AssignLand(Player *theplayer, Land *theLand);
@@ -44,8 +48,9 @@ private:
     QColor attackerColor,attackedColor;
     QString diceAttacker,diceAttacked;
     Land *attacker;
-//    Land *attacked;
     Player *playerNow;
+    int playerAmount;
+    int status;
 };
 
 #endif // GAMEMAP_H

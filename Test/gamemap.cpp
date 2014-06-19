@@ -2,14 +2,21 @@
 using namespace std;
 
 extern const int MAXDICE = 5;
-const int playerAmount = 3;
 
 GameMap::GameMap(QObject *parent) :
     QObject(parent)
 {
+    playerAmount = 2;
+    status = 0;
+}
+
+void GameMap::initialize(){
+    status = 1;
+
     for(int i=0;i<10;i++){
         for(int j=0;j<20;j++){
-            grids[i][j].setColor(QColor(255-i*10,200,255-j*10)); //get a more beautiful backgroud.
+            //grids[i][j].setColor(QColor(255,255,255));
+            grids[i][j].setColor(QColor(255-i*5,255-i*5,255-j)); //get a more beautiful backgroud.
         }
     }
     srand((unsigned)time(NULL));
@@ -18,8 +25,6 @@ GameMap::GameMap(QObject *parent) :
         Player *theplayer = new Player(playerNumber);            //set all players.
         players.push_back(theplayer);
     }
-
-
 
     Land *theLand;
 
@@ -66,8 +71,21 @@ GameMap::GameMap(QObject *parent) :
     diceAttacker="";
     diceAttacked="";
     playerNow = players[0];
-
 }
+
+void GameMap::gameOver(){
+    status = 0;
+    for(set<Land*>::iterator it=lands.begin();it!=lands.end();it++){
+        delete *it;
+    }
+    for(vector<Player*>::iterator it=players.begin();it!=players.end();it++){
+        delete *it;
+    }
+    lands.clear();
+    players.clear();
+    playerAmount = 2;
+}
+
 void GameMap::AddGrid(Land *theLand,int row,int colum){
     theLand->AddGrid(&grids[row][colum]);
     grids[row][colum].setLand(theLand);
@@ -75,23 +93,20 @@ void GameMap::AddGrid(Land *theLand,int row,int colum){
 
 GameMap::~GameMap()        //the destructor of map
 {
-    for(set<Land*>::iterator it=lands.begin();it!=lands.end();it++){
-        delete *it;
-    }
-    for(vector<Player*>::iterator it=players.begin();it!=players.end();it++){
-        delete *it;
-    }
 }
 
 QColor GameMap::getColor(int index) const
 {
+//    if(status==0)return 0;
     return grids[index/20][index%20].getColor();
 }
 int GameMap::getDice(int index) const
 {
+//    if(status==0)return 0;
     return grids[index/20][index%20].getDice();
 }
 void GameMap::setDice(int index,int diceSum){
+//    if(status==0)return 0;
     Land *homeLand = grids[index/20][index%20].getLand();
     if(homeLand)
         homeLand->setDice(diceSum);
@@ -101,6 +116,7 @@ void GameMap::enter(int index){
     Land *homeLand = grids[index/20][index%20].getLand();
     if(homeLand && (homeLand != attacker))
         homeLand->Enter();
+    std::cout<<"enter"<<endl;
 
 }
 
@@ -170,6 +186,7 @@ void GameMap::endTurn(){
     }while(!players[index]->IsAlive());
     if(playerNow == players[index]){
         cout<<"GAME OVER! PLAYER "<<index<<" WIN!"<<endl;
+        gameOver();
     }else{
         playerNow = players[index];
     }
