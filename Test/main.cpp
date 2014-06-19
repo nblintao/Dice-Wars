@@ -13,6 +13,8 @@ int main(int argc, char* argv[])
     GameMap gameMap;
     view.rootContext()->setContextProperty("gameMap",&gameMap);
 
+    view.setTitle("Dice War");
+
     view.setSource(QUrl("qrc:///main.qml"));
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     if (QGuiApplication::platformName() == QLatin1String("qnx") ||
