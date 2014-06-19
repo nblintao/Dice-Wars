@@ -126,28 +126,30 @@ Rectangle {
                 id:playerfColor;
                 width:30;
                 height:30;
-                color:"blue";
+                color:"white";
             }
             Text{
                 id:playerfPoint;
                 width:300;
                 anchors.verticalCenter: parent.verticalCenter;
                 horizontalAlignment:Text.AlignHCenter;
-                text:"23";
+                font.family: "Helvetica [Cronyx]";
+                text:"";
                 font.pixelSize: 25;
             }
             Rectangle{
                 id:playersColor;
                 width:30;
                 height:30;
-                color:"#00ee76";
+                color:"white";
             }
             Text{
                 id:playersPoint;
                 width:300;
                 anchors.verticalCenter: parent.verticalCenter;
                 horizontalAlignment:Text.AlignHCenter;
-                text:"16";
+                font.family: "Helvetica [Cronyx]";
+                text:"";
                 font.pixelSize: 25;
             }
         }
@@ -162,6 +164,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter;
                 horizontalAlignment:Text.AlignHCenter;
                 text:"1.Click your area.";
+                font.family: "Helvetica [Cronyx]";
                 font.pixelSize: 20;
             }
             Rectangle{
@@ -169,12 +172,13 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter;
                 width:30;
                 height:30;
-                color:"#7D9EC0";
+                color:"white";
             }
             Text{
                 anchors.verticalCenter: parent.verticalCenter;
                 horizontalAlignment:Text.AlignHCenter;
-                text:"  2.Click neighbor to attack.";
+                text:" 2.Click neighbor to attack.      ";
+                font.family: "Helvetica [Cronyx]";
                 font.pixelSize: 20;
             }
             Rectangle{
@@ -187,6 +191,7 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter;
                     anchors.horizontalCenter: parent.horizontalCenter;
                     text:"END TURN";
+                    font.family: "Helvetica [Cronyx]";
                     font.pixelSize:23;
                 }
                 MouseArea{
@@ -268,6 +273,7 @@ Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter;
                             text:"Start";
                             font.pixelSize: 25;
+                            font.family: "Helvetica [Cronyx]";
                             color:"#666699";
                             font.bold: true;
                         }
@@ -294,6 +300,7 @@ Rectangle {
                                             imageRep.itemAt(i).source="Transparent_20.png";
                                     }
                                     for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                                    playerColor.color=gameMap.getPlayerColor();
                                     welcomeWindow.z=-5;
                                 }
                             }
@@ -343,6 +350,7 @@ Rectangle {
                                    anchors.verticalCenter: parent.verticalCenter;
                                    anchors.horizontalCenter: parent.horizontalCenter;
                                    text:index+2;
+                                   font.family: "Helvetica [Cronyx]";
                                    font.pixelSize: 20;
                                    font.bold: true
                                    color:"#000000";
@@ -376,6 +384,7 @@ Rectangle {
                                anchors.verticalCenter: parent.verticalCenter;
                                anchors.horizontalCenter: parent.horizontalCenter;
                                text:"Players";
+                               font.family: "Helvetica [Cronyx]";
                                font.pixelSize: 30;
                                font.bold: true;
                                color:"#666600";
