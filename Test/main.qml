@@ -355,13 +355,15 @@ Rectangle {
                 width:parent.width;
                 Text{
                     id:finnalMessage;
-                    text:"  Player 1 Wins";
+                    font.family: "Helvetica [Cronyx]";
+                    text:"  Player I Wins";
                     font.pixelSize: 70;
                     font.bold: true;
                     color:"#009966";
                 }
                 Text{
                     text:"  Congratulations!";
+                    font.family: "Helvetica [Cronyx]";
                     font.pixelSize: 70;
                     font.bold: true;
                     color:"#009966";
@@ -389,6 +391,7 @@ Rectangle {
                                 anchors.verticalCenter: parent.verticalCenter;
                                 anchors.horizontalCenter: parent.horizontalCenter;
                                 text:"Restart";
+                                font.family: "Helvetica [Cronyx]";
                                 font.bold: true;
                                 font.pixelSize: 20;
                             }
@@ -411,6 +414,7 @@ Rectangle {
                             Text{
                                 anchors.verticalCenter: parent.verticalCenter;
                                 anchors.horizontalCenter: parent.horizontalCenter;
+                                font.family: "Helvetica [Cronyx]";
                                 text:"Quit";
                                 font.bold: true;
                                 font.pixelSize: 20;
