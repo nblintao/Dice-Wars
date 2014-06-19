@@ -29,6 +29,7 @@ public:
     Q_INVOKABLE QColor getAttackerColor();
     Q_INVOKABLE QColor getAttackedColor();
     Q_INVOKABLE QColor getPlayerColor();
+    Q_INVOKABLE QColor getWinnerColor();
     Q_INVOKABLE QString getAttackerDice();
     Q_INVOKABLE QString getAttackedDice();
     Q_INVOKABLE int getStatus(){return status;}

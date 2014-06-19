@@ -93,6 +93,7 @@ Rectangle {
                         if(gameMap.getStatus()===1){
                             gameMap.click(index);
                             if(gameMap.getStatus()===2){
+                                winnerColor.color=gameMap.getWinnerColor();
                                 finalWindow.z=22;
                             }else{
                                 for(var i=0;i<200;i++){
@@ -404,13 +405,26 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 width:parent.width;
-                Text{
-                    id:finnalMessage;
-                    font.family: "Helvetica [Cronyx]";
-                    text:"  Player I Wins";
-                    font.pixelSize: 70;
-                    font.bold: true;
-                    color:"#009966";
+                Row{
+                    Text{
+                        anchors.verticalCenter: parent.verticalCenter;
+                        id:finnalMessage;
+                        font.family: "Helvetica [Cronyx]";
+                        text:"  Winner :  ";
+                        font.pixelSize: 70;
+                        font.bold: true;
+                        color:"#009966";
+                    }
+                    Rectangle{
+                        id:winnerColor;
+                        anchors.verticalCenter: parent.verticalCenter;
+                        width:50;
+                        height:50;
+                        radius: 10;
+                        border.color: "white";
+                        border.width: 5;
+                        color:"black";
+                    }
                 }
                 Text{
                     text:"  Congratulations!";

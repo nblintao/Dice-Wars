@@ -170,6 +170,12 @@ QString GameMap::getAttackedDice(){
 QColor GameMap::getPlayerColor(){
     return playerNow->getColor();
 }
+QColor GameMap::getWinnerColor(){
+    if (NULL==alivePlayer)
+        return QColor(255,255,255);
+    else
+        return alivePlayer->getColor();
+}
 
 void GameMap::endTurn(){
     ChangeAttaker(NULL);
