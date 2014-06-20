@@ -33,7 +33,7 @@ void GameMap::initialize(){
     int map[ROW][COLUMN];
     char temp;
 //    FILE *fp=fopen("c.csv","r");
-    FILE *fp=fopen("20_40_A.csv","r");
+    FILE *fp=fopen("20_40_B.csv","r");
     if (fp!=NULL){
         for (int i=0;i<ROW;i++)
         for (int j=0;j<COLUMN;j++){
@@ -132,18 +132,20 @@ void GameMap::exit(int index){
 
 void GameMap::click(int index){
     Land *homeLand = grids[index/COLUMN][index%COLUMN].getLand();
+    diceAttacker="";
+    diceAttacked="";
+    attackerColor=QColor(255,255,255);
+    attackedColor=QColor(255,255,255);
     if(NULL == homeLand){
         ChangeAttaker(NULL);
     }else{
         if((homeLand->BelongTo(playerNow))){  //when user click another land of himself, it means changing the attacker.
             if(homeLand->getDice() > 1)
-                ChangeAttaker(homeLand);
-                attackerColor=homeLand->getColor();
-                diceAttacker="";
-                diceAttacked="";
+                ChangeAttaker(homeLand);                
         }else{                         //when user click another land of others, it means attacking him.
             if((NULL != attacker) && (attacker->IsAdjacent(homeLand))){
                 attackedColor=homeLand->getColor();
+                attackerColor=attacker->getColor();
                 attacker->Attack(homeLand,diceAttacker,diceAttacked);
                 ChangeAttaker(NULL);
             }
