@@ -55,11 +55,14 @@ public:
         }
         return aliveNumber==1;
     }
+    Q_INVOKABLE int row(){return ROW;}
+    Q_INVOKABLE int column(){return COLUMN;}
 signals:
     void sendColorChange(void);
 public slots:
 private:
-    Grid grids[10][20];
+    Grid grids[20][40];
+    //HRER SHOULD BE FIXED!!!
     set<Land*> lands;
     vector<Player*> players;
     Player *alivePlayer;

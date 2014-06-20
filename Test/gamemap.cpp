@@ -2,6 +2,8 @@
 using namespace std;
 
 extern const int MAXDICE = 5;
+extern const int ROW = 20;
+extern const int COLUMN = 40;
 
 GameMap::GameMap(QObject *parent) :
     QObject(parent)
@@ -13,10 +15,10 @@ GameMap::GameMap(QObject *parent) :
 void GameMap::initialize(){
     status = 1;
 
-    for(int i=0;i<10;i++){
-        for(int j=0;j<20;j++){
+    for(int i=0;i<ROW;i++){
+        for(int j=0;j<COLUMN;j++){
             //grids[i][j].setColor(QColor(255,255,255));
-            grids[i][j].setColor(QColor(255-i*5,255-i*5,255-j)); //get a more beautiful backgroud.
+            grids[i][j].setColor(QColor(255-i*50/ROW,255-i*50/ROW,255-j*10/ROW)); //get a more beautiful backgroud.
         }
     }
     srand((unsigned)time(NULL));
@@ -28,21 +30,24 @@ void GameMap::initialize(){
 
     Land *theLand;
 
-    int map[10][20];
+    int map[ROW][COLUMN];
     char temp;
-    FILE *fp=fopen("c.csv","r");
+//    FILE *fp=fopen("c.csv","r");
+    FILE *fp=fopen("20_40_A.csv","r");
     if (fp!=NULL){
-        for (int i=0;i<10;i++)
-        for (int j=0;j<20;j++){
+        for (int i=0;i<ROW;i++)
+        for (int j=0;j<COLUMN;j++){
             fscanf(fp,"%d",&map[i][j]);
             fscanf(fp,"%c",&temp);          //get the map from the file.
         }
+    }else{
+        std::cout<<"Load file failed"<<endl;
     }
     for (int index=1;index<30;index++){
         theLand=new Land;
         int nothing = 1;
-        for (int i=0;i<10;i++){
-            for (int j=0;j<20;j++){
+        for (int i=0;i<ROW;i++){
+            for (int j=0;j<COLUMN;j++){
                 if (map[i][j]==index){
                     AddGrid(theLand,i,j);   //build each object of lands.
                     nothing = 0;
@@ -58,8 +63,8 @@ void GameMap::initialize(){
 
     FindAdjacent();
 
-    for(int i=0;i<10;i++){
-        for(int j=0;j<20;j++){
+    for(int i=0;i<ROW;i++){
+        for(int j=0;j<COLUMN;j++){
             Land *homeLand = grids[i][j].getLand();
             if(NULL != homeLand)              //set color for each players.
                 grids[i][j].setColor(homeLand->getColor());
@@ -71,6 +76,7 @@ void GameMap::initialize(){
     diceAttacker="";
     diceAttacked="";
     playerNow = players[0];
+    std:cout<<"Initial succeed."<<endl;
 }
 
 void GameMap::gameOver(){
@@ -83,7 +89,7 @@ void GameMap::gameOver(){
     }
     lands.clear();
     players.clear();
-    playerAmount = 2;
+//    playerAmount = 2;
 }
 
 void GameMap::AddGrid(Land *theLand,int row,int colum){
@@ -98,34 +104,34 @@ GameMap::~GameMap()        //the destructor of map
 QColor GameMap::getColor(int index) const
 {
 //    if(status==0)return 0;
-    return grids[index/20][index%20].getColor();
+    return grids[index/COLUMN][index%COLUMN].getColor();
 }
 int GameMap::getDice(int index) const
 {
 //    if(status==0)return 0;
-    return grids[index/20][index%20].getDice();
+    return grids[index/COLUMN][index%COLUMN].getDice();
 }
 void GameMap::setDice(int index,int diceSum){
 //    if(status==0)return 0;
-    Land *homeLand = grids[index/20][index%20].getLand();
+    Land *homeLand = grids[index/COLUMN][index%COLUMN].getLand();
     if(homeLand)
         homeLand->setDice(diceSum);
 }
 
 void GameMap::enter(int index){
-    Land *homeLand = grids[index/20][index%20].getLand();
+    Land *homeLand = grids[index/COLUMN][index%COLUMN].getLand();
     if(homeLand && (homeLand != attacker))
         homeLand->Enter();
 }
 
 void GameMap::exit(int index){
-    Land *homeLand = grids[index/20][index%20].getLand();
+    Land *homeLand = grids[index/COLUMN][index%COLUMN].getLand();
     if(homeLand && (homeLand != attacker))
         homeLand->Exit();
 }
 
 void GameMap::click(int index){
-    Land *homeLand = grids[index/20][index%20].getLand();
+    Land *homeLand = grids[index/COLUMN][index%COLUMN].getLand();
     if(NULL == homeLand){
         ChangeAttaker(NULL);
     }else{
@@ -204,8 +210,8 @@ void GameMap::AssignLand(Player *thePlayer, Land *theLand){
 }
 
 void GameMap::FindAdjacent(){    //find all the adjacent lands by going through the map.
-    for (int i=0;i<9;i++)
-        for (int j=0;j<19;j++)
+    for (int i=0;i<ROW-1;i++)
+        for (int j=0;j<COLUMN-1;j++)
         if (grids[i][j].getLand()!=0){               //check if two grids belong to different lands.
             if ((grids[i][j].getLand()!=grids[i+1][j].getLand())&&(grids[i+1][j].getLand()!=0)){
                 grids[i][j].getLand()->AddAdjacent(grids[i+1][j].getLand());

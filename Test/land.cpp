@@ -75,7 +75,6 @@ void Land::Attack(Land *attacked,QString& diceAttacker,QString& diceAttacked)
 }
 
 int Land::AdjacentLandsNumber(){          //count adjacent number to determine how much dices will be added.
-    std::cout<<"Land::AdjacentLandsNumber"<<endl;
     queue<Land*> landQueue1;
     set<Land*> connectedLands;
     landQueue1.push(this);
@@ -114,7 +113,7 @@ void Land::setColor(QColor color){
     }
 }
 void Land::setDice(int diceSum){  //distribute dices to grids in a land.
-    int sum=0,tmp,no,f[200];
+    int sum=0,tmp,no,f[ROW*COLUMN];
     diceAmount=diceSum;
     for(set<Grid*>::iterator it=grids.begin();it!=grids.end();it++){
         (*it)->setDice(0);

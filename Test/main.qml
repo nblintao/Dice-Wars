@@ -47,16 +47,18 @@ Rectangle {
     Grid{
         id:imageGrid;
         z:20;
-        rows:10;
-        columns:20;
+        rows:gameMap.row();
+        columns:gameMap.column();
         anchors.top: parent.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 10;
         Repeater{
             id:imageRep;
-            model:200;
+            model:gameMap.row()*gameMap.column();
             Image{
-                width:40;
-                height:40;
-                x:index*index%10;y:10-index*index%10;
+//                width:40;
+//                height:40;
+                width:800/gameMap.column();
+                height:400/gameMap.row();
+                x:index*index%gameMap.row();y:gameMap.row()-index*index%gameMap.row();
                 source:"./Dice_20.png";
             }
         }
@@ -64,14 +66,16 @@ Rectangle {
 
     Grid{
         id:grid
-        rows:10;
-        columns:20;
+        rows:gameMap.row();
+        columns:gameMap.column();
         anchors.top: parent.top; anchors.horizontalCenter: parent.horizontalCenter; anchors.margins: 10;
         Repeater{
             id:rep;
-            model:200;
+            model:gameMap.row()*gameMap.column();
             Rectangle {
-                width: 40; height: 40
+//                width: 40; height: 40
+                width:800/gameMap.column();
+                height:400/gameMap.row();
                 color:gameMap.getColor(index);
                 MouseArea {
                     anchors.fill: parent
@@ -80,13 +84,13 @@ Rectangle {
                     onEntered:{
                         if(gameMap.getStatus()===1){
                             gameMap.enter(index);
-                            for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                            for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                         }
                     }
                     onExited:{
                         if(gameMap.getStatus()===1){
                             gameMap.exit(index);
-                            for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                            for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                         }
                     }
                     onClicked:{
@@ -96,13 +100,13 @@ Rectangle {
                                 winnerColor.color=gameMap.getWinnerColor();
                                 finalWindow.z=22;
                             }else{
-                                for(var i=0;i<200;i++){
+                                for(var i=0;i<rep.model;i++){
                                     if(gameMap.getDice(i)==1)
                                         imageRep.itemAt(i).source="Dice_20.png";
                                     else
                                         imageRep.itemAt(i).source="Transparent_20.png";
                                 }
-                                for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                                for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                                 playerfColor.color=gameMap.getAttackerColor();
                                 playersColor.color=gameMap.getAttackedColor();
                                 playerfPoint.text=gameMap.getAttackerDice();
@@ -201,13 +205,13 @@ Rectangle {
                     anchors.fill: parent
                     onClicked: {
                         gameMap.endTurn();
-                        for(var i=0;i<200;i++){
+                        for(var i=0;i<rep.model;i++){
                             if(gameMap.getDice(i)==1)
                                 imageRep.itemAt(i).source="Dice_20.png";
                             else
                                 imageRep.itemAt(i).source="Transparent_20.png";
                         }
-                        for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                        for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                         playerfColor.color=gameMap.getAttackerColor();
                         playersColor.color=gameMap.getAttackedColor();
                         playerfPoint.text=gameMap.getAttackerDice();
@@ -296,13 +300,13 @@ Rectangle {
                             onClicked:{
                                 if(gameMap.getStatus()===0){
                                     gameMap.initialize();
-                                    for(var i=0;i<200;i++){
+                                    for(var i=0;i<rep.model;i++){
                                         if(gameMap.getDice(i)==1)
                                             imageRep.itemAt(i).source="Dice_20.png";
                                         else
                                             imageRep.itemAt(i).source="Transparent_20.png";
                                     }
-                                    for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                                    for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                                     playerColor.color=gameMap.getPlayerColor();
                                     welcomeWindow.z=-5;
                                 }
@@ -484,13 +488,13 @@ Rectangle {
                                 onClicked: {
                                     if(gameMap.getStatus()===2){
                                         gameMap.initialize();
-                                        for(var i=0;i<200;i++){
+                                        for(var i=0;i<rep.model;i++){
                                             if(gameMap.getDice(i)==1)
                                                 imageRep.itemAt(i).source="Dice_20.png";
                                             else
                                                 imageRep.itemAt(i).source="Transparent_20.png";
                                         }
-                                        for(var i=0;i<200;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                                        for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                                         finalWindow.z=-10;
                                     }
                                 }

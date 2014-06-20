@@ -11,6 +11,8 @@
 using namespace std;
 
 extern const int MAXDICE;
+extern const int ROW;
+extern const int COLUMN;
 
 class Player;
 class Grid;
