@@ -161,6 +161,8 @@ void GameMap::ChangeAttaker(Land* newLand){
     if(NULL != newLand){
         attacker = newLand;
         attacker->setColor(Qt::black);
+    }else{
+        attacker = NULL;
     }
 }
 QColor GameMap::getAttackerColor(){
