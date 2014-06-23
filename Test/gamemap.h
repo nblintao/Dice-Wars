@@ -46,7 +46,9 @@ signals:
     void sendColorChange(void);
 public slots:
 private:
-    Grid grids[20][40]; 
+    static const int ROW=20;
+    static const int COLUMN=40;
+    Grid grids[ROW][COLUMN];
     set<Land*> lands;
     vector<Player*> players;
     Player *alivePlayer;

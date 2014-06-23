@@ -4,6 +4,7 @@ using namespace std;
 extern const int MAXDICE = 5;
 extern const int ROW = 20;
 extern const int COLUMN = 40;
+const int LANDMAX = 30;
 
 GameMap::GameMap(QObject *parent) :  QObject(parent){
     playerAmount = 2;
@@ -35,7 +36,7 @@ void GameMap::initialize(){
     }else{
         std::cout<<"Load file failed"<<endl;
     }
-    for (int index=1;index<30;index++){
+    for (int index=1;index<LANDMAX;index++){
         theLand=new Land;
         int nothing = 1;
         for (int i=0;i<ROW;i++){
