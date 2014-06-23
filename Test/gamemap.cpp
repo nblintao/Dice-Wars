@@ -66,7 +66,7 @@ void GameMap::initialize(){
     diceAttacker="";
     diceAttacked="";
     playerNow = players[0];
-    std:cout<<"Initial succeed."<<endl;
+    std::cout<<"Initial succeed."<<endl;
 }
 
 void GameMap::gameOver(){
