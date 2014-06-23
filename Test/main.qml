@@ -106,7 +106,7 @@ Rectangle {
                                     else
                                         imageRep.itemAt(i).source="Transparent_20.png";
                                 }
-                                for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                                for(i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                                 playerfColor.color=gameMap.getAttackerColor();
                                 playersColor.color=gameMap.getAttackedColor();
                                 playerfPoint.text=gameMap.getAttackerDice();
@@ -211,7 +211,7 @@ Rectangle {
                             else
                                 imageRep.itemAt(i).source="Transparent_20.png";
                         }
-                        for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                        for(i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                         playerfColor.color=gameMap.getAttackerColor();
                         playersColor.color=gameMap.getAttackedColor();
                         playerfPoint.text=gameMap.getAttackerDice();
@@ -306,7 +306,7 @@ Rectangle {
                                         else
                                             imageRep.itemAt(i).source="Transparent_20.png";
                                     }
-                                    for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                                    for(i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                                     playerColor.color=gameMap.getPlayerColor();
                                     welcomeWindow.z=-5;
                                 }
@@ -494,7 +494,7 @@ Rectangle {
                                             else
                                                 imageRep.itemAt(i).source="Transparent_20.png";
                                         }
-                                        for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
+                                        for(i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                                         finalWindow.z=-10;
                                     }
                                 }

@@ -1,5 +1,4 @@
 #include "player.h"
-#include<iostream>
 
 Player::Player(int playerNumber) :ID(playerNumber),alive(1), remainDices(0)
 {
@@ -36,32 +35,14 @@ Player::Player(int playerNumber) :ID(playerNumber),alive(1), remainDices(0)
 
 }
 
-
-Player::~Player()
-{
-}
-
-void Player::AddLand(Land *theLand)
-{
-    lands.insert(theLand);
-}
-
-void Player::DeleteLand(Land *theLand)
-{
+void Player::DeleteLand(Land *theLand){
     lands.erase(theLand);
     if (this->lands.empty()) {
         this->Die();
     }
 }
-void Player::Die()
-{
-    std::cout << "PLAYER " << this->ID << " DIE" << endl;
-    this->alive = 0;
-//    gameMap.playerDie();
-}
-void Player::AdjustMaxAdjacentLands()
-{
-    //std::cout<<"AdjustMaxAdjacentLands"<<endl;
+
+void Player::AdjustMaxAdjacentLands(){    
     int maxAdjacentLands = 0;
     for (set<Land*>::iterator it = lands.begin(); it != lands.end(); it++) {
         int adjacentLands = (*it)->AdjacentLandsNumber();
@@ -77,7 +58,7 @@ void Player::AddDices()
 {
     vector<Land*> availableLands;
     for(set<Land*>::iterator it=lands.begin();it!=lands.end();it++){
-        if((*it)->getDice() != MAXDICE)
+        if((*it)->GetDice() != MAXDICE)
             availableLands.push_back(*it);
     }
     int freeDices = remainDices + maxAdjacentLands;   //decide the number of dices will be added.
@@ -86,8 +67,8 @@ void Player::AddDices()
         if(!availableLands.empty()){
             int randLandNumber = rand()%availableLands.size();   //choose where to add randomly.
             Land *randLand = availableLands[randLandNumber];
-            randLand->setDice(randLand->getDice()+1);
-            if(randLand->getDice() == MAXDICE)     //when the land is full, dices cannot be added.
+            randLand->SetDice(randLand->GetDice()+1);
+            if(randLand->GetDice() == MAXDICE)     //when the land is full, dices cannot be added.
                 availableLands.erase(availableLands.begin()+randLandNumber);
         }else{
             remainDices++;

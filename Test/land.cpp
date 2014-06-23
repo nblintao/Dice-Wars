@@ -1,22 +1,9 @@
 #include "Land.h"
 
-
 Land::Land()
 {
     owner = NULL;
     color = QColor(Qt::yellow);
-    //setDice(rand()%MAXDICE + 1);
-    //diceAmount = rand()%MAXDICE + 1;
-}
-
-
-Land::~Land()
-{
-}
-
-bool Land::IsAdjacent(Land *anotherLand)
-{
-    return adjacentLands.count(anotherLand);   //judge whether two lands are adjacent.
 }
 
 void Land::Attack(Land *attacked,QString& diceAttacker,QString& diceAttacked)
@@ -44,7 +31,6 @@ void Land::Attack(Land *attacked,QString& diceAttacker,QString& diceAttacked)
     tmpString.setNum(attackerDots);
     diceAttacker=diceAttacker+" = "+tmpString;
     std::cout << "=" << attackerDots << endl;
-
     std::cout << "attacked: " << endl;
     for (int i = 0; i < attacked->diceAmount; i++) {
         dots = rand() % 6 + 1;
@@ -62,15 +48,12 @@ void Land::Attack(Land *attacked,QString& diceAttacker,QString& diceAttacked)
     diceAttacked=diceAttacked+" = "+tmpString;
     std::cout << "=" << attackedDots << endl;
     if (attackerDots>attackedDots) {           //if the attack is a success.
-        attacked->ChangeOwner(this->owner);
-        //attacked->diceAmount = this->diceAmount - 1;
-        attacked->setDice(this->diceAmount - 1);
-        //this->diceAmount = 1;
-        setDice(1);
+        attacked->ChangeOwner(this->owner);       
+        attacked->SetDice(this->diceAmount - 1);
+        SetDice(1);
     }
     else {                                   //if the attack is a failure.
-        //this->diceAmount = 1;
-        setDice(1);
+        SetDice(1);
     }
 }
 
@@ -93,26 +76,22 @@ int Land::AdjacentLandsNumber(){          //count adjacent number to determine h
     return connectedLands.size();
 }
 
-void Land::ChangeOwner(Player *newOwner)
-{                                            //when attack successfully, the owner is another player.
+void Land::ChangeOwner(Player *newOwner){     //when attack successfully, the owner is another player.
     if(NULL != owner)
         owner->DeleteLand(this);
     owner = newOwner;
     owner->AddLand(this);
-    color = owner->getColor();
-    setColor(color);
+    color = owner->GetColor();
+    SetColor(color);
 }
 
-void Land::AddGrid(Grid *newGrid){
-    grids.insert(newGrid);
-}
-
-void Land::setColor(QColor color){
+void Land::SetColor(QColor color){
     for(set<Grid*>::iterator it=grids.begin();it!=grids.end();it++){
         (*it)->setColor(color);
     }
 }
-void Land::setDice(int diceSum){  //distribute dices to grids in a land.
+
+void Land::SetDice(int diceSum){  //distribute dices to grids in a land.
     int sum=0,tmp,no,f[ROW*COLUMN];
     diceAmount=diceSum;
     for(set<Grid*>::iterator it=grids.begin();it!=grids.end();it++){
@@ -134,10 +113,3 @@ void Land::setDice(int diceSum){  //distribute dices to grids in a land.
             (*it)->setDice(1);
 }
 
-void Land::Enter(){
-    setColor(color.lighter(80));
-}
-
-void Land::Exit(){
-    setColor(color);
-}

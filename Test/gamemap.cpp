@@ -5,41 +5,33 @@ extern const int MAXDICE = 5;
 extern const int ROW = 20;
 extern const int COLUMN = 40;
 
-GameMap::GameMap(QObject *parent) :
-    QObject(parent)
-{
+GameMap::GameMap(QObject *parent) :  QObject(parent){
     playerAmount = 2;
     status = 0;
 }
 
 void GameMap::initialize(){
     status = 1;
-
     for(int i=0;i<ROW;i++){
-        for(int j=0;j<COLUMN;j++){
-            //grids[i][j].setColor(QColor(255,255,255));
+        for(int j=0;j<COLUMN;j++){ 
             grids[i][j].setColor(QColor(255-i*50/ROW,255-i*50/ROW,255-j*10/ROW)); //get a more beautiful backgroud.
         }
     }
     srand((unsigned)time(NULL));
-
     for(int playerNumber=0;playerNumber<playerAmount;playerNumber++){
         Player *theplayer = new Player(playerNumber);            //set all players.
         players.push_back(theplayer);
     }
-
     Land *theLand;
-
     int map[ROW][COLUMN];
     char temp;
-//    FILE *fp=fopen("c.csv","r");
     FILE *fp=fopen("20_40_B.csv","r");
     if (fp!=NULL){
         for (int i=0;i<ROW;i++)
-        for (int j=0;j<COLUMN;j++){
-            fscanf(fp,"%d",&map[i][j]);
-            fscanf(fp,"%c",&temp);          //get the map from the file.
-        }
+            for (int j=0;j<COLUMN;j++){
+                fscanf(fp,"%d",&map[i][j]);
+                fscanf(fp,"%c",&temp);          //get the map from the file.
+            }
     }else{
         std::cout<<"Load file failed"<<endl;
     }
@@ -56,21 +48,18 @@ void GameMap::initialize(){
         }
         if(0 == nothing){
             AssignLand(players[rand()%playerAmount],theLand);
-            theLand->setDice(rand()%MAXDICE + 1);
+            theLand->SetDice(rand()%MAXDICE + 1);
             lands.insert(theLand);            //determine the dice number randomly.
         }
     }
-
     FindAdjacent();
-
     for(int i=0;i<ROW;i++){
         for(int j=0;j<COLUMN;j++){
             Land *homeLand = grids[i][j].getLand();
             if(NULL != homeLand)              //set color for each players.
-                grids[i][j].setColor(homeLand->getColor());
+                grids[i][j].setColor(homeLand->GetColor());
         }
     }
-
     attacker = NULL;
     attackerColor=attackedColor=QColor(255,255,255);
     diceAttacker="";
@@ -89,7 +78,6 @@ void GameMap::gameOver(){
     }
     lands.clear();
     players.clear();
-//    playerAmount = 2;
 }
 
 void GameMap::AddGrid(Land *theLand,int row,int colum){
@@ -97,25 +85,10 @@ void GameMap::AddGrid(Land *theLand,int row,int colum){
     grids[row][colum].setLand(theLand);
 }
 
-GameMap::~GameMap()        //the destructor of map
-{
-}
-
-QColor GameMap::getColor(int index) const
-{
-//    if(status==0)return 0;
-    return grids[index/COLUMN][index%COLUMN].getColor();
-}
-int GameMap::getDice(int index) const
-{
-//    if(status==0)return 0;
-    return grids[index/COLUMN][index%COLUMN].getDice();
-}
 void GameMap::setDice(int index,int diceSum){
-//    if(status==0)return 0;
     Land *homeLand = grids[index/COLUMN][index%COLUMN].getLand();
     if(homeLand)
-        homeLand->setDice(diceSum);
+        homeLand->SetDice(diceSum);
 }
 
 void GameMap::enter(int index){
@@ -140,12 +113,12 @@ void GameMap::click(int index){
         ChangeAttaker(NULL);
     }else{
         if((homeLand->BelongTo(playerNow))){  //when user click another land of himself, it means changing the attacker.
-            if(homeLand->getDice() > 1)
+            if(homeLand->GetDice() > 1)
                 ChangeAttaker(homeLand);                
         }else{                         //when user click another land of others, it means attacking him.
             if((NULL != attacker) && (attacker->IsAdjacent(homeLand))){
-                attackedColor=homeLand->getColor();
-                attackerColor=attacker->getColor();
+                attackedColor=homeLand->GetColor();
+                attackerColor=attacker->GetColor();
                 attacker->Attack(homeLand,diceAttacker,diceAttacked);
                 ChangeAttaker(NULL);
             }
@@ -154,37 +127,17 @@ void GameMap::click(int index){
     if(IsLastPlayer())
         gameOver();
 }
+
 void GameMap::ChangeAttaker(Land* newLand){
     if(NULL != attacker){
-        attacker->setColor(attacker->getColor());
+        attacker->SetColor(attacker->GetColor());
     }
     if(NULL != newLand){
         attacker = newLand;
-        attacker->setColor(Qt::black);
+        attacker->SetColor(Qt::black);
     }else{
         attacker = NULL;
     }
-}
-QColor GameMap::getAttackerColor(){
-    return attackerColor;
-}
-QColor GameMap::getAttackedColor(){
-    return attackedColor;
-}
-QString GameMap::getAttackerDice(){
-    return diceAttacker;
-}
-QString GameMap::getAttackedDice(){
-    return diceAttacked;
-}
-QColor GameMap::getPlayerColor(){
-    return playerNow->getColor();
-}
-QColor GameMap::getWinnerColor(){
-    if (NULL==alivePlayer)
-        return QColor(255,255,255);
-    else
-        return alivePlayer->getColor();
 }
 
 void GameMap::endTurn(){
@@ -200,12 +153,7 @@ void GameMap::endTurn(){
         if(index >= (int) players.size())
             index=0;
     }while(!players[index]->IsAlive());
-//    if(playerNow == players[index]){
-//        cout<<"GAME OVER! PLAYER "<<index<<" WIN!"<<endl;
-//        gameOver();
-//    }else{
-        playerNow = players[index];
-//    }
+    playerNow = players[index];
 }
 
 void GameMap::AssignLand(Player *thePlayer, Land *theLand){
@@ -226,4 +174,16 @@ void GameMap::FindAdjacent(){    //find all the adjacent lands by going through 
                 grids[i][j+1].getLand()->AddAdjacent(grids[i][j].getLand());
             }
         }
+}
+
+bool GameMap::IsLastPlayer(){
+    int aliveNumber = 0;
+    for(vector<Player*>::iterator it=players.begin();it!=players.end();it++){
+        Player *theplayer = *it;
+        if(theplayer->IsAlive()){
+            aliveNumber++;
+            alivePlayer = theplayer;
+        }
+    }
+    return aliveNumber==1;
 }

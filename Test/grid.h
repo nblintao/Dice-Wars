@@ -14,9 +14,8 @@ public:
     Q_INVOKABLE void setColor(QColor sColor);
     Q_INVOKABLE int getDice() const;
     void setLand(Land *newLand);
-    void setDice(int is);
-    Land* getLand();
-
+    void setDice(int amount);
+    Land* getLand() const;
 signals:
     void sendColorChange(void);
 public slots:
@@ -25,5 +24,29 @@ private:
     Land *homeLand;
     int dice;
 };
+
+inline QColor Grid::getColor(void) const{
+    return color;
+}
+
+inline void Grid::setColor(QColor sColor){
+    this->color = sColor;
+}
+
+inline void Grid::setLand(Land *newLand){
+    homeLand = newLand;
+}
+
+inline void Grid::setDice(int amount){
+    dice=amount;
+}
+
+inline int Grid::getDice() const{
+    return dice;
+}
+
+inline Land* Grid::getLand() const{
+    return homeLand;
+}
 
 #endif // GRID_H

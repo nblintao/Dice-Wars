@@ -19,50 +19,34 @@ public:
     ~GameMap();
     Q_INVOKABLE void initialize();
     Q_INVOKABLE void gameOver();
-    Q_INVOKABLE QColor getColor(int index)const;
     Q_INVOKABLE void enter(int index);
     Q_INVOKABLE void exit(int index);
     Q_INVOKABLE void click(int index);
     Q_INVOKABLE void endTurn();
     Q_INVOKABLE int getDice(int index) const;
     Q_INVOKABLE void setDice(int index,int diceSum);
-    Q_INVOKABLE QColor getAttackerColor();
-    Q_INVOKABLE QColor getAttackedColor();
-    Q_INVOKABLE QColor getPlayerColor();
-    Q_INVOKABLE QColor getWinnerColor();
-    Q_INVOKABLE QString getAttackerDice();
-    Q_INVOKABLE QString getAttackedDice();
-    Q_INVOKABLE int getStatus(){return status;}
-    Q_INVOKABLE void setPlayer(int playerAmount){this->playerAmount=playerAmount;}
-//    void playerDie(){
-//        playerAmount--;
-//        if(playerAmount==1)
-//            gameOver();
-//    }
+    Q_INVOKABLE QColor getColor(int index) const;
+    Q_INVOKABLE QColor getAttackerColor() const;
+    Q_INVOKABLE QColor getAttackedColor() const;
+    Q_INVOKABLE QColor getPlayerColor() const;
+    Q_INVOKABLE QColor getWinnerColor() const;
+    Q_INVOKABLE QString getAttackerDice() const;
+    Q_INVOKABLE QString getAttackedDice() const;
+    Q_INVOKABLE int getStatus() const;
+    Q_INVOKABLE void setPlayer(int playerAmount);
     void setColor(int index,QColor sColor);
     void AddGrid(Land *theLand,int row,int colum);
     void AssignLand(Player *theplayer, Land *theLand);
     void ChangeAttaker(Land* newLand);
     void FindAdjacent();
-    bool IsLastPlayer(){
-        int aliveNumber = 0;
-        for(vector<Player*>::iterator it=players.begin();it!=players.end();it++){
-            Player *theplayer = *it;
-            if(theplayer->IsAlive()){
-                aliveNumber++;
-                alivePlayer = theplayer;
-            }
-        }
-        return aliveNumber==1;
-    }
-    Q_INVOKABLE int row(){return ROW;}
-    Q_INVOKABLE int column(){return COLUMN;}
+    bool IsLastPlayer();
+    Q_INVOKABLE int row() const;
+    Q_INVOKABLE int column() const;
 signals:
     void sendColorChange(void);
 public slots:
 private:
-    Grid grids[20][40];
-    //HRER SHOULD BE FIXED!!!
+    Grid grids[20][40]; 
     set<Land*> lands;
     vector<Player*> players;
     Player *alivePlayer;
@@ -73,5 +57,59 @@ private:
     int playerAmount;
     int status;
 };
+
+inline int GameMap::getStatus() const{
+     return status;
+}
+
+inline void GameMap::setPlayer(int playerAmount){
+    this->playerAmount=playerAmount;
+}
+
+inline int GameMap::row() const{
+    return ROW;
+}
+
+inline int GameMap::column() const{
+    return COLUMN;
+}
+
+inline GameMap::~GameMap(){     //the destructor of map
+}
+
+inline QColor GameMap::getColor(int index) const{
+    return grids[index/COLUMN][index%COLUMN].getColor();
+}
+
+inline int GameMap::getDice(int index) const{
+    return grids[index/COLUMN][index%COLUMN].getDice();
+}
+
+inline QColor GameMap::getAttackerColor() const{
+    return attackerColor;
+}
+
+inline QColor GameMap::getAttackedColor() const{
+    return attackedColor;
+}
+
+inline QString GameMap::getAttackerDice() const{
+    return diceAttacker;
+}
+
+inline QString GameMap::getAttackedDice() const{
+    return diceAttacked;
+}
+
+inline QColor GameMap::getPlayerColor() const{
+    return playerNow->GetColor();
+}
+
+inline QColor GameMap::getWinnerColor() const{
+    if (NULL==alivePlayer)
+        return QColor(255,255,255);
+    else
+        return alivePlayer->GetColor();
+}
 
 #endif // GAMEMAP_H
