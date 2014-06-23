@@ -4,7 +4,7 @@ using namespace std;
 extern const int MAXDICE = 5;
 extern const int ROW = 20;
 extern const int COLUMN = 40;
-const int LANDMAX = 30;
+extern const int LANDMAX = 30;
 
 GameMap::GameMap(QObject *parent) :  QObject(parent){
     playerAmount = 2;

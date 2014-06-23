@@ -2,12 +2,12 @@
 #define _PLAYER_H
 
 #include <QColor>
-#include<iostream>
 #include <set>
 #include <vector>
-#include "land.h"
+#include<iostream>
 
 using namespace std;
+class Land;
 
 class Player
 {

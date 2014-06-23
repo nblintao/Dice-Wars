@@ -1,13 +1,12 @@
 #ifndef _LAND_H
 #define _LAND_H
 
-#include "Grid.h"
-#include "Player.h"
-#include <iostream>
-#include <set>
 #include <QString>
 #include <QColor>
 #include <queue>
+#include <set>
+#include <iostream>
+
 using namespace std;
 
 extern const int MAXDICE;

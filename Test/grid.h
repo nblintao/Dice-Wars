@@ -4,7 +4,9 @@
 #include <QObject>
 #include <QList>
 #include <QColor>
+
 class Land;
+
 class Grid : public QObject
 {
     Q_OBJECT

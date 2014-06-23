@@ -1,4 +1,5 @@
 #include "player.h"
+#include "land.h"
 
 Player::Player(int playerNumber) :ID(playerNumber),alive(1), remainDices(0)
 {

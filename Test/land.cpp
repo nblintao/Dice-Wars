@@ -1,4 +1,6 @@
 #include "Land.h"
+#include "player.h"
+#include "grid.h"
 
 Land::Land()
 {

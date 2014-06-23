@@ -11,6 +11,11 @@
 #include <ctime>
 #include <cstdio>
 
+extern const int MAXDICE;
+extern const int ROW;
+extern const int COLUMN;
+extern const int LANDMAX;
+
 class GameMap : public QObject
 {
     Q_OBJECT
