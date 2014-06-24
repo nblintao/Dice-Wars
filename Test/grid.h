@@ -15,9 +15,9 @@ public:
     Q_INVOKABLE QColor getColor(void) const;
     Q_INVOKABLE void setColor(QColor sColor);
     Q_INVOKABLE int getDice() const;
-    void setLand(Land *newLand);
-    void setDice(int amount);
-    Land* getLand() const;
+    void setLand(Land *newLand);  //使该格子属于一块领地
+    void setDice(int amount);  //决定是否在这个方格中显示一颗骰子
+    Land* getLand() const;    //用于访问私有变量land
 signals:
     void sendColorChange(void);
 public slots:
