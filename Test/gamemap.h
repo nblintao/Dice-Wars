@@ -39,12 +39,12 @@ public:
     Q_INVOKABLE QString getAttackedDice() const;
     Q_INVOKABLE int getStatus() const;
     Q_INVOKABLE void setPlayer(int playerAmount);
-    void setColor(int index,QColor sColor);  //用于设定该领地在地图上的颜色，与领地所述的玩家编号有关
-    void AddGrid(Land *theLand,int row,int colum);  //用于创建地图
-    void AssignLand(Player *theplayer, Land *theLand);  //确定领地的归属，将领地分配给特定的玩家
-    void ChangeAttaker(Land* newLand);  //用户如果先后单击两次己方领地，则视为更换发动攻击的地块
-    void FindAdjacent();  //在地图创建之后存储所有地区的邻接信息，以便攻击时判断此次攻击是否有效
-    bool IsLastPlayer();  //判断当前玩家是否是最后一个，如果是，判其获胜，游戏结束
+    void setColor(int index,QColor sColor);
+    void AddGrid(Land *theLand,int row,int colum);
+    void AssignLand(Player *theplayer, Land *theLand);
+    void ChangeAttaker(Land* newLand);
+    void FindAdjacent();
+    bool IsLastPlayer();
     Q_INVOKABLE int row() const;
     Q_INVOKABLE int column() const;
 signals:

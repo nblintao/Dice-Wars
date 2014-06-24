@@ -22,12 +22,12 @@ public:
     Player(int playerNumber);
     ~Player();
     int GetID() const;
-    bool IsAlive() const;  //通过对地图的扫描，得知该玩家是否还有领地
-    void AddLand(Land *theLand);  //创建时给玩家分配领地，以及进攻成功后获得领地
-    void DeleteLand(Land *theLand);  //被他人进攻后失去领地
-    void Die();        //设置该玩家已死亡，此后不再出现有关操作
-    void AdjustMaxAdjacentLands();  //获得最大的连续领地数
-    void AddDices();  //在进攻成功或一轮结束后，用于给该玩家的各个领地随机分配相应数量的骰子
+    bool IsAlive() const;
+    void AddLand(Land *theLand);
+    void DeleteLand(Land *theLand);
+    void Die();
+    void AdjustMaxAdjacentLands();
+    void AddDices();
     QColor GetColor() const;
 };
 
