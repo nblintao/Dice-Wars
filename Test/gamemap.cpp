@@ -88,19 +88,19 @@ void GameMap::AddGrid(Land *theLand,int row,int colum){
 
 void GameMap::setDice(int index,int diceSum){
     Land *homeLand = grids[index/COLUMN][index%COLUMN].getLand();
-    if(homeLand)
+    if(NULL!=homeLand)       //ZYH
         homeLand->SetDice(diceSum);
 }
 
 void GameMap::enter(int index){
     Land *homeLand = grids[index/COLUMN][index%COLUMN].getLand();
-    if(homeLand && (homeLand != attacker))
+    if((NULL!=homeLand) && (homeLand != attacker))
         homeLand->Enter();
 }
 
 void GameMap::exit(int index){
     Land *homeLand = grids[index/COLUMN][index%COLUMN].getLand();
-    if(homeLand && (homeLand != attacker))
+    if((NULL!=homeLand) && (homeLand != attacker))
         homeLand->Exit();
 }
 
@@ -125,7 +125,7 @@ void GameMap::click(int index){
             }
         }
     }
-    if(IsLastPlayer())
+    if(1==IsLastPlayer())
         gameOver();
 }
 

@@ -111,7 +111,7 @@ void Land::SetDice(int diceSum){  //distribute dices to grids in a land.
     }
     no=0;
     for(set<Grid*>::iterator it=grids.begin();it!=grids.end();it++,no++)
-        if (1==f[no)
+        if (1==f[no])
             (*it)->setDice(1);
 }
 
