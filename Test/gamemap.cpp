@@ -27,7 +27,7 @@ void GameMap::initialize(){
     int map[ROW][COLUMN];
     char temp;
     FILE *fp=fopen("20_40_B.csv","r");
-    if (fp!=NULL){
+    if (NULL!=fp){
         for (int i=0;i<ROW;i++)
             for (int j=0;j<COLUMN;j++){
                 fscanf(fp,"%d",&map[i][j]);
@@ -165,12 +165,12 @@ void GameMap::AssignLand(Player *thePlayer, Land *theLand){
 void GameMap::FindAdjacent(){    //find all the adjacent lands by going through the map.
     for (int i=0;i<ROW-1;i++)
         for (int j=0;j<COLUMN-1;j++)
-        if (grids[i][j].getLand()!=0){               //check if two grids belong to different lands.
-            if ((grids[i][j].getLand()!=grids[i+1][j].getLand())&&(grids[i+1][j].getLand()!=0)){
+        if (0!=grids[i][j].getLand()){               //check if two grids belong to different lands.
+            if ((grids[i][j].getLand()!=grids[i+1][j].getLand())&&(0!=grids[i+1][j].getLand())){
                 grids[i][j].getLand()->AddAdjacent(grids[i+1][j].getLand());
                 grids[i+1][j].getLand()->AddAdjacent(grids[i][j].getLand());   //set each other as adjacent.
             }
-            if ((grids[i][j].getLand()!=grids[i][j+1].getLand())&&(grids[i][j+1].getLand()!=0)){
+            if ((grids[i][j].getLand()!=grids[i][j+1].getLand())&&(0!=grids[i][j+1].getLand())){
                 grids[i][j].getLand()->AddAdjacent(grids[i][j+1].getLand());
                 grids[i][j+1].getLand()->AddAdjacent(grids[i][j].getLand());
             }
@@ -186,5 +186,5 @@ bool GameMap::IsLastPlayer(){
             alivePlayer = theplayer;
         }
     }
-    return aliveNumber==1;
+    return 1==aliveNumber;
 }

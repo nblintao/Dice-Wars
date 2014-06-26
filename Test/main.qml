@@ -82,26 +82,26 @@ Rectangle {
                     hoverEnabled: true
                     property string buttonID
                     onEntered:{
-                        if(gameMap.getStatus()===1){
+                        if(1===gameMap.getStatus()){
                             gameMap.enter(index);
                             for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                         }
                     }
                     onExited:{
-                        if(gameMap.getStatus()===1){
+                        if(1===gameMap.getStatus()){
                             gameMap.exit(index);
                             for(var i=0;i<rep.model;i++){rep.itemAt(i).color=gameMap.getColor(i);}
                         }
                     }
                     onClicked:{
-                        if(gameMap.getStatus()===1){
+                        if(1===gameMap.getStatus()){
                             gameMap.click(index);
-                            if(gameMap.getStatus()===2){
+                            if(2===gameMap.getStatus()){
                                 winnerColor.color=gameMap.getWinnerColor();
                                 finalWindow.z=22;
                             }else{
                                 for(var i=0;i<rep.model;i++){
-                                    if(gameMap.getDice(i)==1)
+                                    if(1==gameMap.getDice(i))
                                         imageRep.itemAt(i).source="Dice_20.png";
                                     else
                                         imageRep.itemAt(i).source="Transparent_20.png";
@@ -206,7 +206,7 @@ Rectangle {
                     onClicked: {
                         gameMap.endTurn();
                         for(var i=0;i<rep.model;i++){
-                            if(gameMap.getDice(i)==1)
+                            if(1==gameMap.getDice(i))
                                 imageRep.itemAt(i).source="Dice_20.png";
                             else
                                 imageRep.itemAt(i).source="Transparent_20.png";
@@ -298,10 +298,10 @@ Rectangle {
                                 startText.font.italic = false;
                             }
                             onClicked:{
-                                if(gameMap.getStatus()===0){
+                                if(0===gameMap.getStatus()){
                                     gameMap.initialize();
                                     for(var i=0;i<rep.model;i++){
-                                        if(gameMap.getDice(i)==1)
+                                        if(1==gameMap.getDice(i))
                                             imageRep.itemAt(i).source="Dice_20.png";
                                         else
                                             imageRep.itemAt(i).source="Transparent_20.png";
@@ -486,10 +486,10 @@ Rectangle {
                                     restartButton.color = "#FF9933";
                                 }
                                 onClicked: {
-                                    if(gameMap.getStatus()===2){
+                                    if(2===gameMap.getStatus()){
                                         gameMap.initialize();
                                         for(var i=0;i<rep.model;i++){
-                                            if(gameMap.getDice(i)==1)
+                                            if(1==gameMap.getDice(i))
                                                 imageRep.itemAt(i).source="Dice_20.png";
                                             else
                                                 imageRep.itemAt(i).source="Transparent_20.png";

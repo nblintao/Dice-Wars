@@ -68,7 +68,7 @@ int Land::AdjacentLandsNumber(){          //count adjacent number to determine h
         Land *theLand;
         theLand = landQueue1.front();
         for(set<Land*>::iterator it=theLand->adjacentLands.begin();it!=theLand->adjacentLands.end();it++){
-            if((connectedLands.count(*it)==0) && ((*it)->owner == owner)){
+            if(0==(connectedLands.count(*it)) && ((*it)->owner == owner)){
                 landQueue1.push(*it);
                 connectedLands.insert(*it);
             }
@@ -103,7 +103,7 @@ void Land::SetDice(int diceSum){  //distribute dices to grids in a land.
     tmp=diceSum;
     no=0;
     while(tmp){
-        if(f[no]==0){
+        if(0==f[no]){
             f[no]=1;
             tmp--;
         }
@@ -111,7 +111,7 @@ void Land::SetDice(int diceSum){  //distribute dices to grids in a land.
     }
     no=0;
     for(set<Grid*>::iterator it=grids.begin();it!=grids.end();it++,no++)
-        if (f[no]==1)
+        if (1==f[no)
             (*it)->setDice(1);
 }
 
